@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Cyber Login | Ethical Hacking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
-    /* Cyberpunk Hacker Theme */
     body {
       margin: 0;
       padding: 0;
@@ -17,16 +18,12 @@
       height: 100vh;
       overflow: hidden;
     }
-
-    /* Matrix Background */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       z-index: -1;
     }
-
-    /* Login Box */
     .login-box {
       background: rgba(0, 0, 0, 0.85);
       border: 2px solid #00ff99;
@@ -36,45 +33,20 @@
       box-shadow: 0 0 25px #00ff99;
       animation: glowBox 3s infinite alternate;
     }
-
     @keyframes glowBox {
       from { box-shadow: 0 0 15px #00ff99; }
       to { box-shadow: 0 0 35px #00ff99; }
     }
-
     h1 {
       text-align: center;
       text-transform: uppercase;
       text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
       animation: flicker 2s infinite;
     }
-
     @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.6;
-      }
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.6; }
     }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      border: 2px solid #00ff99;
-      background: black;
-      color: #00ff99;
-      border-radius: 6px;
-      outline: none;
-      font-size: 1rem;
-      box-shadow: inset 0 0 8px #00ff99;
-    }
-
-    input:focus {
-      box-shadow: 0 0 15px #00ff99;
-    }
-
     button {
       width: 100%;
       padding: 12px;
@@ -89,14 +61,11 @@
       letter-spacing: 2px;
       text-transform: uppercase;
     }
-
     button:hover {
       background: #00ff99;
       color: #000;
       box-shadow: 0 0 20px #00ff99;
     }
-
-    /* Hacking Console */
     .console {
       margin-top: 20px;
       background: #000;
@@ -107,29 +76,19 @@
       overflow-y: auto;
       display: none;
     }
-
-    .console p {
-      margin: 3px 0;
-      color: #00ff99;
-    }
+    .console p { margin: 3px 0; color: #00ff99; }
   </style>
 </head>
 <body>
-  <!-- Matrix BG -->
   <canvas id="matrix"></canvas>
 
-  <!-- Login Box -->
   <div class="login-box">
     <h1>Access Portal</h1>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="👨‍💻 Username" required>
-      <input type="password" id="password" placeholder="🔑 Password" required>
-      <button type="submit">Login</button>
-    </form>
+    <button id="loginBtn">Login / Signup</button>
     <div class="console" id="console"></div>
   </div>
 
-  <!-- Sound Effects -->
+  <!-- Sound FX -->
   <audio id="typingSound" src="https://actions.google.com/sounds/v1/typing/typing_typewriter.ogg"></audio>
   <audio id="beepSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
   <audio id="accessSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
@@ -138,16 +97,13 @@
     // Matrix Background
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
-
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
-
     const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&";
     const fontSize = 14;
     const columns = canvas.width / fontSize;
     const drops = [];
     for (let x = 0; x < columns; x++) drops[x] = 1;
-
     function draw() {
       ctx.fillStyle = "rgba(0,0,0,0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -162,15 +118,13 @@
     }
     setInterval(draw, 35);
 
-    // Fake Hacking Console Effect
-    const loginForm = document.getElementById("loginForm");
+    // Console Effect
     const consoleBox = document.getElementById("console");
     const typingSound = document.getElementById("typingSound");
     const beepSound = document.getElementById("beepSound");
     const accessSound = document.getElementById("accessSound");
 
-    loginForm.addEventListener("submit", function(e) {
-      e.preventDefault();
+    function startConsoleLogs(userName) {
       consoleBox.style.display = "block";
       consoleBox.innerHTML = "";
       const lines = [
@@ -178,7 +132,7 @@
         "[*] Verifying user credentials...",
         "[*] Checking firewall bypass...",
         "[*] Establishing encrypted channel...",
-        "[✅] Access Granted! Welcome, " + document.getElementById("username").value
+        "[✅] Access Granted! Welcome, " + userName
       ];
       let i = 0;
       const interval = setInterval(() => {
@@ -188,22 +142,27 @@
           consoleBox.appendChild(p);
           consoleBox.scrollTop = consoleBox.scrollHeight;
 
-          // Play typing + beep
-          typingSound.currentTime = 0;
-          typingSound.play();
-          beepSound.currentTime = 0;
-          beepSound.play();
-
+          typingSound.currentTime = 0; typingSound.play();
+          beepSound.currentTime = 0; beepSound.play();
           i++;
         } else {
           clearInterval(interval);
-          // Final Access Sound
           accessSound.play();
           setTimeout(() => {
-            window.location.href = "home.html"; // redirect
+            window.location.href = "home.html";
           }, 1500);
         }
       }, 1200);
+    }
+
+    // Netlify Identity
+    netlifyIdentity.init();
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      netlifyIdentity.open();
+    });
+    netlifyIdentity.on("login", (user) => {
+      console.log("Logged in:", user);
+      startConsoleLogs(user.user_metadata.full_name || user.email);
     });
   </script>
 </body>
