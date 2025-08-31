@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>Secure Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <style>
@@ -14,17 +12,15 @@
       padding: 0;
       font-family: 'Courier New', monospace;
       background: black;
-      overflow: hidden;
       color: #00ff99;
+      overflow: hidden;
     }
-
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       z-index: -1;
     }
-
     .login-box {
       position: absolute;
       top: 50%;
@@ -37,19 +33,11 @@
       text-align: center;
       box-shadow: 0 0 20px #00ff99;
     }
-
     h1 {
       font-size: 28px;
       margin-bottom: 20px;
       text-shadow: 0 0 10px #00ff99;
-      animation: flicker 1.5s infinite alternate;
     }
-
-    @keyframes flicker {
-      from { opacity: 1; }
-      to { opacity: 0.6; }
-    }
-
     .btn {
       background: transparent;
       border: 2px solid #00ff99;
@@ -58,18 +46,16 @@
       cursor: pointer;
       color: #00ff99;
       border-radius: 8px;
-      transition: all 0.3s ease;
     }
-
     .btn:hover {
       background: #00ff99;
       color: black;
       box-shadow: 0 0 20px #00ff99;
     }
-
     #console {
+      display: none;
       position: absolute;
-      top: 10%;
+      top: 15%;
       left: 50%;
       transform: translateX(-50%);
       width: 80%;
@@ -78,8 +64,6 @@
       border: 1px solid #00ff99;
       padding: 20px;
       font-size: 16px;
-      line-height: 1.4em;
-      display: none;
       white-space: pre-line;
       color: #00ff99;
       text-shadow: 0 0 8px #00ff99;
@@ -96,47 +80,44 @@
 
   <div id="console"></div>
 
-  <!-- Access Granted Sound -->
   <audio id="accessSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
 
   <script>
-    // Matrix Background
+    // Matrix BG
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
-
     const letters = "01ABCDEFGHIJKLMNOPQRSTUVXYZ";
     const fontSize = 14;
     const columns = canvas.width / fontSize;
     const drops = [];
     for (let x = 0; x < columns; x++) drops[x] = 1;
-
     function draw() {
       ctx.fillStyle = "rgba(0,0,0,0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle = "#0F0";
       ctx.font = fontSize + "px monospace";
       for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random() * letters.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        const text = letters.charAt(Math.floor(Math.random()*letters.length));
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        if (drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
     }
     setInterval(draw, 33);
 
-    // Console Animation
+    // Console effect
     function startConsoleLogs(username) {
       const consoleBox = document.getElementById("console");
       const sound = document.getElementById("accessSound");
-      consoleBox.style.display = "block";
       document.getElementById("loginBox").style.display = "none";
+      consoleBox.style.display = "block";
 
       const logs = [
         "[*] Initializing secure login...",
         "[*] Connecting to authentication server...",
-        "[*] Verifying user credentials...",
+        "[*] Verifying credentials...",
         "[*] User: " + username,
         "[*] Status: Access Granted ✅",
         "[*] Redirecting to secure dashboard..."
@@ -150,9 +131,7 @@
           i++;
           setTimeout(showLog, 1200);
         } else {
-          setTimeout(() => {
-            window.location.href = "home.html";
-          }, 1500);
+          setTimeout(() => { window.location.href = "home.html"; }, 1500);
         }
       }
       showLog();
@@ -163,9 +142,8 @@
     document.getElementById("loginBtn").addEventListener("click", () => {
       netlifyIdentity.open();
     });
-
     netlifyIdentity.on("login", (user) => {
-      netlifyIdentity.close();
+      netlifyIdentity.close(); // popup बंद
       startConsoleLogs(user.user_metadata.full_name || user.email);
     });
   </script>
