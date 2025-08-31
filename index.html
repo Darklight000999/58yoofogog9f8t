@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyber Login | Ethical Hacking</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    /* Cyberpunk Style */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #000000 60%, #0f0f0f 100%);
+      font-family: "Courier New", monospace;
+      color: #00ff99;
+      overflow: hidden;
+    }
+
+    /* Glowing Heading */
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      text-transform: uppercase;
+      color: #00ff99;
+      text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+      margin-bottom: 30px;
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 20px #00ff99;
+      }
+      20%, 24%, 55% {
+        text-shadow: none;
+      }
+    }
+
+    /* Container Card */
+    .login-box {
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ff99;
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 0 20px #00ff99;
+      width: 350px;
+      backdrop-filter: blur(5px);
+      animation: glowBox 3s infinite alternate;
+    }
+
+    @keyframes glowBox {
+      from { box-shadow: 0 0 15px #00ff99; }
+      to { box-shadow: 0 0 35px #00ff99; }
+    }
+
+    /* Button Styling */
+    button {
+      background: transparent;
+      border: 2px solid #00ff99;
+      color: #00ff99;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    button:hover {
+      background: #00ff99;
+      color: #000;
+      box-shadow: 0 0 15px #00ff99, 0 0 30px #00ff99;
+    }
+
+    /* Matrix Style Background Effect */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Matrix Effect -->
+  <canvas id="matrix"></canvas>
+
+  <div class="login-box">
+    <h1>Login to Continue</h1>
+    <button onclick="netlifyIdentity.open()">Login / Signup</button>
+  </div>
+
+  <script>
+    // Initialize Netlify Identity
+    netlifyIdentity.init();
+
+    // जब user लॉगिन हो तो home.html पर redirect करो
+    netlifyIdentity.on("login", (user) => {
+      console.log("Logged in:", user);
+      window.location.href = "home.html";
+    });
+
+    // Matrix Effect Script
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) {
+      drops[x] = 1;
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ff99";
+      ctx.font = fontSize + "px Courier";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 35);
+  </script>
+</body>
+</html>
