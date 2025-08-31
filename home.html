@@ -1,475 +1,203 @@
-
-<!DOCTYPE html><html lang="hi">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DarkLight000999 - National Grade Cybersecurity (NGC) Agency. Advanced SOC, Ethical Hacking, Forensics, AI-driven threat detection." />
-  <title>DarkLight000999 — National Cybersecurity Agency</title>
-  <link rel="icon" href="1000058324.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Cyber Dashboard | Ethical Hacking</title>
   <style>
-    :root{
-      /* ===== Dark Theme (Vivid Cyber) ===== */
-      --bg:#05070b;                 /* page bg */
-      --text:#f4fff6;               /* primary text */
-      --muted:#a9f7e1;              /* secondary text */
-      --card1:#0a1217;              /* glass layers */
-      --card2:#0c0f24;
-      --accent:#00ffa6;             /* neon green */
-      --accent-2:#00d2ff;           /* neon cyan */
-      --accent-3:#ff3df5;           /* neon magenta */
-      --border:rgba(0,255,166,.35);
-      --shadow:0 0 24px rgba(0,255,166,.22);
-      --chip:rgba(255,255,255,.08);/* Rainbow accents for sections/cards */
-  --grad-1: linear-gradient(135deg, #00ffa6 0%, #00d2ff 100%);
-  --grad-2: linear-gradient(135deg, #00d2ff 0%, #7c4dff 100%);
-  --grad-3: linear-gradient(135deg, #7c4dff 0%, #ff3df5 100%);
-  --grad-4: linear-gradient(135deg, #ff3df5 0%, #ff8a00 100%);
-  --grad-5: linear-gradient(135deg, #ff8a00 0%, #ffe600 100%);
-  --grad-6: linear-gradient(135deg, #ffe600 0%, #00ffa6 100%);
+    /* Cyberpunk Hacker Theme */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Courier New", monospace;
+      background: #000;
+      color: #00ff99;
+      overflow-x: hidden;
+    }
 
-  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.12), transparent 60%),
-                radial-gradient(1200px 600px at 100% 110%, rgba(0,210,255,.10), transparent 60%);
-}
+    /* Matrix Effect Background */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
 
-[data-theme="light"]{
-  /* ===== Light Theme (Clean Vivid) ===== */
-  --bg:#f6f9fb;
-  --text:#0e1322;
-  --muted:#425b76;
-  --card1:#ffffff;
-  --card2:#eef6ff;
-  --accent:#06c287;
-  --accent-2:#0aa7dd;
-  --accent-3:#b832ff;
-  --border:rgba(0,0,0,.10);
-  --shadow:0 10px 26px rgba(9,30,66,.12);
-  --chip:rgba(8,17,27,.06);
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #00ff99;
+      box-shadow: 0 0 20px #00ff99;
+    }
 
-  --grad-1: linear-gradient(135deg, #06c287 0%, #0aa7dd 100%);
-  --grad-2: linear-gradient(135deg, #0aa7dd 0%, #6c63ff 100%);
-  --grad-3: linear-gradient(135deg, #6c63ff 0%, #b832ff 100%);
-  --grad-4: linear-gradient(135deg, #b832ff 0%, #ff7a1a 100%);
-  --grad-5: linear-gradient(135deg, #ff7a1a 0%, #ffd21f 100%);
-  --grad-6: linear-gradient(135deg, #ffd21f 0%, #06c287 100%);
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      text-shadow: 0 0 15px #00ff99, 0 0 30px #00ff99;
+      animation: glitch 1.5s infinite;
+    }
 
-  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(6,194,135,.12), transparent 60%),
-                radial-gradient(1200px 600px at 100% 110%, rgba(10,167,221,.10), transparent 60%);
-}
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ff99; }
+      50% { text-shadow: -2px -2px #ff00ff, 2px 2px #00ff99; }
+      100% { text-shadow: 2px -2px #ff00ff, -2px 2px #00ff99; }
+    }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .35s ease,color .35s ease}
+    header button {
+      background: transparent;
+      border: 2px solid #00ff99;
+      padding: 8px 20px;
+      color: #00ff99;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
 
-/* Background Matrix */
-#matrix{position:fixed;inset:0;z-index:-3;background:#000}
-.radial-overlay{position:fixed;inset:0;pointer-events:none;background:var(--section-bg);z-index:-2}
+    header button:hover {
+      background: #00ff99;
+      color: #000;
+      box-shadow: 0 0 20px #00ff99;
+    }
 
-/* Header */
-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 18px;border-bottom:1px solid var(--border);background:color-mix(in oklab, var(--bg) 82%, transparent)}
-.brand{display:flex;align-items:center;gap:10px}
-.brand img{width:44px;height:44px;border-radius:10px;box-shadow:0 0 14px color-mix(in oklab,var(--accent),#fff 20%)}
-.brand h1{font-family:'Orbitron',sans-serif;letter-spacing:1.2px;margin:0;font-size:20px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
 
-/* Top nav for desktop */
-.topnav{display:flex;align-items:center;gap:18px}
-.topnav a{position:relative;text-decoration:none;font-weight:700;color:var(--muted);padding:10px 12px;border-radius:12px}
-.topnav a:hover{color:var(--text)}
-.topnav a::after{content:"";position:absolute;left:12px;right:12px;bottom:6px;height:2px;background:var(--grad-1);transform:scaleX(0);transform-origin:left;transition:transform .25s}
-.topnav a:hover::after{transform:scaleX(1)}
+    .card {
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ff99;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px #00ff99;
+      transition: transform 0.3s;
+    }
 
-.btn{padding:12px 18px;border:none;border-radius:14px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;background:var(--grad-1);color:#03120e;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,filter .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 0 34px color-mix(in oklab,var(--accent),#fff 24%);filter:saturate(1.1)}
-.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ff99;
+    }
 
-.icon-btn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--chip);border:1px solid var(--border);cursor:pointer}
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      border-bottom: 1px solid #00ff99;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
 
-/* Hamburger */
-.hamburger{display:none;gap:6px;flex-direction:column;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;border:1px solid var(--border);background:var(--chip);cursor:pointer;transition:transform .2s}
-.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s}
-.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
-.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
-.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+    .logs {
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      background: #000;
+      padding: 10px;
+      border: 1px solid #00ff99;
+    }
 
-/* Drawer */
-.drawer{position:fixed;top:0;left:0;height:100dvh;width:300px;max-width:88vw;background:linear-gradient(180deg,var(--card1),var(--card2));border-right:1px solid var(--border);box-shadow:0 0 50px rgba(0,0,0,.35);transform:translateX(-102%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:60;display:flex;flex-direction:column}
-.drawer.open{transform:translateX(0)}
-.drawer header{position:relative;background:transparent;border:none;padding:14px 16px}
-.drawer .menu{display:flex;flex-direction:column;padding:10px}
-.drawer .menu a{padding:12px 14px;border-radius:12px;margin:6px 6px;color:var(--text);text-decoration:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05));border:1px solid var(--border)}
-.drawer .menu a:hover{background:linear-gradient(90deg,rgba(255,255,255,.10),transparent)}
+    .log-line {
+      margin: 5px 0;
+      animation: typing 3s steps(40, end) infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #00ff99;
+      width: fit-content;
+    }
 
-.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:55}
-.scrim.show{opacity:1;pointer-events:auto}
-
-/* Hero */
-.hero{position:relative;text-align:center;padding:120px 18px 84px;color:var(--text)}
-.hero::after{content:"";position:absolute;inset:auto 10% -10% 10%;height:2px;background:var(--grad-2);filter:blur(1px);opacity:.7}
-.hero h2{margin:0;font-size:clamp(28px,5vw,56px);font-family:'Orbitron',sans-serif;letter-spacing:1px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px color-mix(in oklab,var(--accent),#fff 14%))}
-.hero p{max-width:980px;margin:16px auto 0;color:var(--muted);font-size:clamp(14px,2.4vw,19px)}
-
-/* Main layout */
-main{max-width:1200px;margin:auto;padding:54px 18px}
-section{margin:68px 0}
-.section-title{text-align:center;margin:0 0 28px;font-size:clamp(20px,3vw,30px);text-transform:uppercase;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative}
-.section-title::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-8px;width:160px;height:3px;background:var(--grad-3);border-radius:999px;box-shadow:0 0 18px color-mix(in oklab,var(--accent-3),#fff 10%)}
-
-/* Colored section wrappers */
-#about{background:linear-gradient(180deg, transparent, rgba(0,255,166,.05));padding:28px;border-radius:18px}
-#services{background:linear-gradient(180deg, transparent, rgba(0,210,255,.05));padding:28px;border-radius:18px}
-#portfolio{background:linear-gradient(180deg, transparent, rgba(255,61,245,.05));padding:28px;border-radius:18px}
-#contact{background:linear-gradient(180deg, transparent, rgba(255,138,0,.06));padding:28px;border-radius:18px}
-
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-
-/* Colorful cards */
-.card{position:relative;border-radius:16px;padding:22px;background:linear-gradient(135deg,color-mix(in oklab,var(--card1),#000 15%),color-mix(in oklab,var(--card2),#000 8%));border:1px solid var(--border);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,filter .2s}
-.card::after{content:"";position:absolute;inset:-1px;border-radius:18px;background:var(--grad-1);filter:blur(16px);opacity:.18;z-index:-1}
-.card:nth-child(2)::after{background:var(--grad-2)}
-.card:nth-child(3)::after{background:var(--grad-3)}
-.card:nth-child(4)::after{background:var(--grad-4)}
-.card:nth-child(5)::after{background:var(--grad-5)}
-.card:nth-child(6)::after{background:var(--grad-6)}
-.card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 0 36px color-mix(in oklab,var(--accent),#fff 22%);filter:saturate(1.05)}
-.card h3{margin:0 0 6px}
-.card p{margin:0;color:var(--muted)}
-
-/* Stats */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-.stat{position:relative;border-radius:16px;padding:20px;background:conic-gradient(from 0.25turn at 50% 50%, rgba(0,210,255,.12), rgba(0,255,166,.12));border:1px solid var(--border);text-align:center;overflow:hidden}
-.stat::before{content:"";position:absolute;inset:-2px;border-radius:18px;background:var(--grad-2);filter:blur(18px);opacity:.18;z-index:-1}
-.stat .num{font-size:32px;font-weight:900;background:linear-gradient(90deg,var(--accent-2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat .label{color:var(--muted);font-size:13px}
-
-/* Contact form */
-form .field{display:flex;flex-direction:column;gap:8px;margin:10px 0}
-label{font-weight:700;color:var(--text)}
-.input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:color-mix(in oklab,var(--card1),#000 8%);color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
-.input:focus,textarea:focus{border:1px solid color-mix(in oklab,var(--accent),#fff 12%);box-shadow:0 0 0 3px color-mix(in oklab,var(--accent),#fff 20%)}
-
-/* Panels */
-#adminPanel,#userPanel{display:none;margin:28px auto;padding:24px;border-radius:16px;max-width:1000px;background:linear-gradient(135deg,color-mix(in oklab,var(--card2),#000 15%),color-mix(in oklab,var(--card1),#000 10%));border:1px solid var(--border);position:relative}
-#adminPanel::before,#userPanel::before{content:"";position:absolute;inset:-2px;border-radius:18px;background:var(--grad-1);z-index:-1;filter:blur(20px);opacity:.28}
-
-/* Footer */
-footer{position:relative;margin-top:40px;padding:26px 18px;text-align:center;border-top:1px solid var(--border);background:color-mix(in oklab,var(--bg) 85%, transparent);color:var(--muted)}
-footer a{color:var(--text);text-decoration:none}
-footer a:hover{text-decoration:underline}
-.theme-fab{position:absolute;right:20px;bottom:20px;width:50px;height:50px;border-radius:50%;border:1px solid var(--border);background:var(--grad-1);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow)}
-
-/* Responsive */
-@media (max-width:980px){
-  .topnav{display:none}
-  .hamburger{display:flex}
-}
-
-/* Compatibility aliases so existing HTML keeps working */
-.overlay{position:fixed;inset:0;pointer-events:none;background:var(--section-bg);z-index:-2}
-.theme-toggle{position:absolute;right:20px;bottom:20px;width:50px;height:50px;border-radius:50%;border:1px solid var(--border);background:var(--grad-1);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow)}
-
-/* Support old JS that toggles body.light */
-body.light{
-  --bg:#f6f9fb;
-  --text:#0e1322;
-  --muted:#425b76;
-  --card1:#ffffff;
-  --card2:#eef6ff;
-  --accent:#06c287;
-  --accent-2:#0aa7dd;
-  --accent-3:#b832ff;
-  --border:rgba(0,0,0,.10);
-  --shadow:0 10px 26px rgba(9,30,66,.12);
-  --chip:rgba(8,17,27,.06);
-  --grad-1: linear-gradient(135deg, #06c287 0%, #0aa7dd 100%);
-  --grad-2: linear-gradient(135deg, #0aa7dd 0%, #6c63ff 100%);
-  --grad-3: linear-gradient(135deg, #6c63ff 0%, #b832ff 100%);
-  --grad-4: linear-gradient(135deg, #b832ff 0%, #ff7a1a 100%);
-  --grad-5: linear-gradient(135deg, #ff7a1a 0%, #ffd21f 100%);
-  --grad-6: linear-gradient(135deg, #ffd21f 0%, #06c287 100%);
-  --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(6,194,135,.12), transparent 60%),
-                radial-gradient(1200px 600px at 100% 110%, rgba(10,167,221,.10), transparent 60%);
-}
-
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
   </style>
 </head>
-<body data-theme="dark">
+<body>
+  <!-- Matrix BG -->
   <canvas id="matrix"></canvas>
-  <div class="radial-overlay" aria-hidden="true"></div>  <!-- Drawer -->  <aside id="drawer" class="drawer" aria-hidden="true" aria-label="Primary">
-    <header>
-      <div class="brand"><img src="1000058324.png" alt="DarkLight Logo"><h1>DarkLight000999</h1></div>
-    </header>
-    <nav class="menu" role="navigation">
-      <a href="#about" onclick="closeDrawer()">About</a>
-      <a href="#services" onclick="closeDrawer()">Services</a>
-      <a href="#portfolio" onclick="closeDrawer()">Portfolio</a>
-      <a href="#contact" onclick="closeDrawer()">Contact</a>
-      <button class="btn" style="margin:10px 8px" onclick="logout()">Logout</button>
-      <button class="btn-outline" style="margin:6px 8px" onclick="toggleTheme()" id="drawerTheme">🌑 / 🌞</button>
-    </nav>
-  </aside>
-  <div id="scrim" class="scrim" onclick="closeDrawer()" aria-hidden="true"></div>  <!-- Header -->  <header>
-    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="brand">
-      <img src="1000058324.png" alt="DarkLight Logo" />
-      <h1>DarkLight000999</h1>
+
+  <!-- Header -->
+  <header>
+    <h1>🔐 Cyber Security Dashboard</h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+    <div class="card">
+      <h2>System Status</h2>
+      <p>🟢 Firewall: Active</p>
+      <p>🟢 IDS: Monitoring</p>
+      <p>🟢 VPN: Secured</p>
+      <p>🔴 Threats Detected: 3</p>
     </div>
-    <nav class="topnav" role="navigation">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#contact">Contact</a>
-      <button class="btn-outline" id="headerTheme" onclick="toggleTheme()" title="Toggle theme">🌑</button>
-      <button class="btn" onclick="logout()">Logout</button>
-    </nav>
-  </header>  <!-- Hero -->  <section class="hero">
-    <h2>National Grade Cybersecurity (NGC)</h2>
-    <p>We are the frontline against cyber warfare. Protecting enterprises, governments & critical infrastructure with AI‑driven defense.</p>
-    <button class="btn">Get Protected</button>
-  </section>  <main>
-    <section id="about">
-      <h2 class="section-title">About Us</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Mission</h3>
-          <p>Ethical hacking, penetration testing, DFIR, SOC and cyber threat intel with 24×7 response.</p>
-        </article>
-        <article class="card">
-          <h3>Values</h3>
-          <p>Zero‑trust by default • Privacy first • AI‑assisted analysts • Compliance‑ready reports.</p>
-        </article>
-        <article class="card">
-          <h3>Coverage</h3>
-          <p>Gov, PSU, BFSI, Energy, Telecom, Defense • On‑prem & cloud workloads.</p>
-        </article>
+
+    <div class="card">
+      <h2>Attack Logs</h2>
+      <div class="logs">
+        <div class="log-line">[INFO] Brute-force attempt blocked (IP: 192.168.1.50)</div>
+        <div class="log-line">[WARNING] SQL Injection detected (IP: 10.0.0.45)</div>
+        <div class="log-line">[INFO] Port Scan detected from 45.67.23.11</div>
+        <div class="log-line">[ALERT] Unauthorized access blocked (IP: 172.16.0.3)</div>
       </div>
-    </section><section id="services">
-  <h2 class="section-title">Services</h2>
-  <div class="grid">
-    <article class="card"><h3>🔐 Advanced Penetration Testing</h3><p>Full‑stack, cloud, IoT & mobile with exploit chain simulation.</p></article>
-    <article class="card"><h3>🛰️ Next‑Gen SOC & Threat Hunting</h3><p>MITRE ATT&CK mapping, UEBA & continuous hunt playbooks.</p></article>
-    <article class="card"><h3>⚡ Critical Infrastructure Security</h3><p>ICS/SCADA hardening, Red/Blue/Purple exercises.</p></article>
-    <article class="card"><h3>🧬 DFIR</h3><p>Forensics, malware triage, legal‑grade evidence.</p></article>
-    <article class="card"><h3>🤖 AI‑driven Threat Intel</h3><p>OSINT/Darkweb monitoring, risk scoring, auto‑enrichment.</p></article>
-    <article class="card"><h3>🎯 Training</h3><p>Red Team / Blue Team bootcamps & tabletop drills.</p></article>
+    </div>
+
+    <div class="card">
+      <h2>Active Sessions</h2>
+      <p>👨‍💻 Admin — 127.0.0.1</p>
+      <p>👤 Analyst — 192.168.0.23</p>
+      <p>👤 Guest — 10.0.0.19</p>
+    </div>
+
+    <div class="card">
+      <h2>Network Traffic</h2>
+      <p>⬆ Upload: 1.2 GB</p>
+      <p>⬇ Download: 3.8 GB</p>
+      <p>⚡ Real-time Packets: 15,432</p>
+    </div>
   </div>
-</section>
 
-<section id="portfolio">
-  <h2 class="section-title">Portfolio / Case Studies</h2>
-  <div class="stats">
-    <div class="stat"><div class="num">200+</div><div class="label">Gov & Enterprise Clients</div></div>
-    <div class="stat"><div class="num">10K+</div><div class="label">Cyberattacks Prevented</div></div>
-    <div class="stat"><div class="num">24/7</div><div class="label">Continuous Monitoring</div></div>
-    <div class="stat"><div class="num"><span style="font-variant-numeric:tabular-nums">99.98%</span></div><div class="label">SLA Uptime</div></div>
-  </div>
-</section>
+  <script>
+    // Matrix Background Effect
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
 
-<section id="contact">
-  <h2 class="section-title">Contact Us</h2>
-<section id="contact">
-  <h2 class="section-title">Contact Us</h2>
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-  <form action="https://formspree.io/f/xqadbagz" method="POST" class="contact-form">
-    <div class="field">
-      <label for="name">Your Name</label>
-      <input id="name" type="text" name="name" placeholder="Enter your full name" required>
-    </div>
+    const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
 
-    <div class="field">
-      <label for="email">Your Email</label>
-      <input id="email" type="email" name="email" placeholder="Enter your email address" required>
-    </div>
+    for (let x = 0; x < columns; x++) drops[x] = 1;
 
-    <div class="field">
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-    </div>
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    <button type="submit" class="btn">Send Your Message</button>
-  </form>
-</section>
+      ctx.fillStyle = "#00ff99";
+      ctx.font = fontSize + "px Courier";
 
-<!-- ✅ Extra CSS for Professional Look -->
-<style>
-.contact-form {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  font-family: Arial, sans-serif;
-}
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-.contact-form .field {
-  margin-bottom: 15px;
-}
-
-.contact-form label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border 0.2s ease-in-out;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #007BFF;
-  outline: none;
-}
-
-.contact-form .btn {
-  width: 100%;
-  background: #007BFF;
-  color: white;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.contact-form .btn:hover {
-  background: #0056b3;
-}
-</style>
-</section>
-
-<div id="adminPanel">
-  <h2>🔐 Admin Control Center</h2>
-  <p>Welcome, Super Admin. Manage DarkLight NGC operations securely.</p>
-  <button class="btn" onclick="logout()">Logout</button>
-</div>
-
-<div id="userPanel">
-  <h2>👤 Secure Client Portal</h2>
-  <p>Welcome to your dashboard. Access reports, alerts and monitoring data here.</p>
-  <button class="btn" onclick="logout()">Logout</button>
-</div>
-
-  </main>  <footer>
-    <p>© 2025 DarkLight000999 — National Grade Cybersecurity Agency | All Rights Reserved</p>
-    <div>
-      <a href="#">Privacy Policy</a> · <a href="#">Terms</a> · <a href="#">LinkedIn</a> · <a href="#">GitHub</a>
-    </div>
-    <button class="theme-fab" id="footerTheme" onclick="toggleTheme()" title="Toggle theme">🌑</button>
-  </footer>  <script>
-    // ===== Matrix Rain (respects reduced motion) =====
-    const matrix = document.getElementById('matrix');
-    const mtx = matrix.getContext('2d');
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function resizeCanvas(){matrix.width=window.innerWidth;matrix.height=window.innerHeight}
-    resizeCanvas();
-    window.addEventListener('resize',resizeCanvas);
-
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
-    const fontSize = 14; let drops = [];
-    function initDrops(){const cols=Math.ceil(matrix.width/fontSize);drops = Array(cols).fill(1)}
-    initDrops();
-    function draw(){
-      mtx.fillStyle = 'rgba(0,0,0,0.08)';
-      mtx.fillRect(0,0,matrix.width,matrix.height);
-      mtx.fillStyle = '#0f0';
-      mtx.font = fontSize+'px monospace';
-      for(let i=0;i<drops.length;i++){
-        const ch = letters[Math.floor(Math.random()*letters.length)];
-        mtx.fillText(ch,i*fontSize,drops[i]*fontSize);
-        if(drops[i]*fontSize>matrix.height && Math.random()>0.975) drops[i]=0;
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
     }
-    let matrixTimer = null;
-    function startMatrix(){ if(prefersReduced) return; stopMatrix(); matrixTimer = setInterval(draw,33) }
-    function stopMatrix(){ if(matrixTimer) clearInterval(matrixTimer) }
-    startMatrix();
 
-    // ===== Drawer Controls =====
-    const drawer = document.getElementById('drawer');
-    const scrim = document.getElementById('scrim');
-    const burger = document.getElementById('hamburger');
-    let lastFocused = null;
+    setInterval(draw, 35);
 
-    function openDrawer(){
-      lastFocused = document.activeElement;
-      drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false');
-      scrim.classList.add('show'); burger.setAttribute('aria-expanded','true');
-      drawer.querySelector('a,button').focus();
-      document.addEventListener('keydown',trapTab);
+    // Logout Action
+    function logout() {
+      alert("You have been logged out securely!");
+      window.location.href = "login.html";
     }
-    function closeDrawer(){
-      drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true');
-      scrim.classList.remove('show'); burger.setAttribute('aria-expanded','false');
-      document.removeEventListener('keydown',trapTab);
-      if(lastFocused) lastFocused.focus();
-    }
-    function trapTab(e){
-      if(e.key==='Escape'){closeDrawer();return}
-      if(e.key!=='Tab') return;
-      const focusables = drawer.querySelectorAll('a,button');
-      const first = focusables[0]; const last = focusables[focusables.length-1];
-      if(e.shiftKey && document.activeElement===first){ last.focus(); e.preventDefault(); }
-      else if(!e.shiftKey && document.activeElement===last){ first.focus(); e.preventDefault(); }
-    }
-    burger.addEventListener('click',()=>{drawer.classList.contains('open')?closeDrawer():openDrawer()});
-
-    // expose close for inline onclick
-    window.closeDrawer = closeDrawer;
-
-    // ===== Theme Toggle with Persistence =====
-    const THEME_KEY = 'dl-theme';
-    const body = document.body;
-    function applyThemeIcon(){
-      const isLight = body.getAttribute('data-theme')==='light';
-      document.getElementById('headerTheme')?.setAttribute('title', isLight?'Dark':'Light');
-      document.getElementById('headerTheme')?.replaceChildren(document.createTextNode(isLight?'🌞':'🌑'));
-      document.getElementById('footerTheme')?.replaceChildren(document.createTextNode(isLight?'🌞':'🌑'));
-      document.getElementById('drawerTheme')?.replaceChildren(document.createTextNode(isLight?'🌞':'🌑'));
-    }
-    function setTheme(mode){ body.setAttribute('data-theme', mode); localStorage.setItem(THEME_KEY, mode); applyThemeIcon(); }
-    function toggleTheme(){ const mode = body.getAttribute('data-theme')==='light'?'dark':'light'; setTheme(mode); }
-    window.toggleTheme = toggleTheme;
-    const stored = localStorage.getItem(THEME_KEY); if(stored){ setTheme(stored); } else { setTheme('dark'); }
-
-    // ===== Firebase Auth (fill your config) =====
-    (async ()=>{
-      const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js');
-      const { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js');
-      const firebaseConfig = {
-        apiKey: 'AIzaSyB8Ydj__jisqUsU1NGTXruCGsTi7wmIw8o',
-        authDomain: 'elegant-moment-470412-h3.firebaseapp.com',
-        projectId: 'elegant-moment-470412-h3',
-        storageBucket: 'elegant-moment-470412-h3.firebasestorage.app',
-        messagingSenderId: '948629350861',
-        appId: '1:948629350861:web:5d9e141e3bce27dd657c84'
-      };
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      await setPersistence(auth, browserLocalPersistence);
-
-      const adminEmail = 'darklightrkshackers@gmail.com';
-      onAuthStateChanged(auth, user => {
-        if(user){
-          if(user.email === adminEmail){ document.getElementById('adminPanel').style.display='block'; }
-          else { document.getElementById('userPanel').style.display='block'; }
-        }else{
-          // window.location.href = 'index.html'; // uncomment if this page is protected
-        }
-      });
-      window.logout = ()=> signOut(auth).then(()=>{ window.location.href='index.html'; });
-    })();
-  </script></body>
+  </script>
+</body>
 </html>
