@@ -3,40 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Secure Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Courier New', monospace;
       background: black;
       color: #00ff99;
-      overflow: hidden;
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-    .login-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.7);
-      padding: 40px;
-      border: 2px solid #00ff99;
-      border-radius: 10px;
+      font-family: monospace;
       text-align: center;
-      box-shadow: 0 0 20px #00ff99;
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px #00ff99;
+      margin-top: 20%;
     }
     .btn {
       background: transparent;
@@ -50,101 +24,28 @@
     .btn:hover {
       background: #00ff99;
       color: black;
-      box-shadow: 0 0 20px #00ff99;
-    }
-    #console {
-      display: none;
-      position: absolute;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80%;
-      max-width: 600px;
-      background: rgba(0,0,0,0.8);
-      border: 1px solid #00ff99;
-      padding: 20px;
-      font-size: 16px;
-      white-space: pre-line;
-      color: #00ff99;
-      text-shadow: 0 0 8px #00ff99;
     }
   </style>
 </head>
 <body>
-  <canvas id="matrix"></canvas>
-
-  <div class="login-box" id="loginBox">
-    <h1>Secure Access Portal</h1>
-    <button class="btn" id="loginBtn">LOGIN / SIGNUP</button>
-  </div>
-
-  <div id="console"></div>
-
-  <audio id="accessSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+  <h1>Secure Access Portal</h1>
+  <button class="btn" id="loginBtn">LOGIN / SIGNUP</button>
 
   <script>
-    // Matrix BG
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    const letters = "01ABCDEFGHIJKLMNOPQRSTUVXYZ";
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = [];
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-    function draw() {
-      ctx.fillStyle = "rgba(0,0,0,0.05)";
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = "#0F0";
-      ctx.font = fontSize + "px monospace";
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters.charAt(Math.floor(Math.random()*letters.length));
-        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
-        if (drops[i]*fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-      }
-    }
-    setInterval(draw, 33);
-
-    // Console effect
-    function startConsoleLogs(username) {
-      const consoleBox = document.getElementById("console");
-      const sound = document.getElementById("accessSound");
-      document.getElementById("loginBox").style.display = "none";
-      consoleBox.style.display = "block";
-
-      const logs = [
-        "[*] Initializing secure login...",
-        "[*] Connecting to authentication server...",
-        "[*] Verifying credentials...",
-        "[*] User: " + username,
-        "[*] Status: Access Granted ✅",
-        "[*] Redirecting to secure dashboard..."
-      ];
-
-      let i = 0;
-      function showLog() {
-        if (i < logs.length) {
-          consoleBox.innerHTML += logs[i] + "\n";
-          sound.play();
-          i++;
-          setTimeout(showLog, 1200);
-        } else {
-          setTimeout(() => { window.location.href = "home.html"; }, 1500);
-        }
-      }
-      showLog();
-    }
-
-    // Netlify Identity
+    // Netlify Identity init
     netlifyIdentity.init();
+
+    // Login button event
     document.getElementById("loginBtn").addEventListener("click", () => {
       netlifyIdentity.open();
     });
+
+    // On successful login
     netlifyIdentity.on("login", (user) => {
-      netlifyIdentity.close(); // popup बंद
-      startConsoleLogs(user.user_metadata.full_name || user.email);
+      console.log("✅ Login successful:", user);
+      netlifyIdentity.close();
+      // --- IMPORTANT: यहां पर home.html redirect होगा ---
+      window.location.href = "home.html";
     });
   </script>
 </body>
