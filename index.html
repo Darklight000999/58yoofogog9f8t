@@ -2,33 +2,29 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <style>
-    body {font-family: Arial; text-align:center; padding-top:100px;}
-    input, button {padding:10px; margin:5px;}
-  </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <h2>लॉगिन करें</h2>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p id="error" style="color:red; display:none;">गलत डिटेल्स!</p>
+  <h2>Login Page</h2>
+
+  <!-- Login/Register Button -->
+  <div>
+    <button onclick="netlifyIdentity.open()">Login / Signup</button>
+  </div>
 
   <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+    // जब यूज़र लॉगिन कर ले
+    netlifyIdentity.on("login", user => {
+      console.log("User Logged in:", user);
+      // ✅ Redirect to home.html
+      window.location.href = "home.html";
+    });
 
-      // डेमो credentials
-      if (user === "admin" && pass === "12345") {
-        localStorage.setItem("authToken", "niptyfipty-demo-token");
-        window.location.href = "home.html"; // ✅ Redirect
-      } else {
-        document.getElementById("error").style.display = "block";
-      }
-    }
+    // Logout Event
+    netlifyIdentity.on("logout", () => {
+      console.log("User logged out");
+    });
   </script>
 </body>
 </html>
