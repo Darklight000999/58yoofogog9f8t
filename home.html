@@ -1,402 +1,640 @@
 <!DOCTYPE html>
-<html lang="hi" data-theme="dark">
+<html lang="hi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="DarkLight000999 - National Grade Cybersecurity (NGC) Agency. Advanced SOC, Ethical Hacking, Forensics, AI-driven threat detection." />
+  <meta name="description" content="DarkLight000999 - National Grade Cybersecurity (NGC). Advanced SOC, Ethical Hacking, Forensics, AI-driven threat detection." />
   <title>DarkLight000999 — National Cybersecurity Agency</title>
-  <link rel="icon" href="1000058324.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* ================= Design Tokens (Light/Dark) ================= */
     :root{
-      --bg-1:#0b1219; --bg-2:#070c12;
-      --surface:#0e1b24f2; --surface-2:#0c1720f2;
-      --text:#e9faf5; --muted:#9fc7bb;
-      --accent:#00f0c4; --accent-2:#00bcd4;
-      --line:#0a5f4f; --chip:#ffffff12; --chip-border:#00d4b04d;
-      --shadow:0 20px 50px #00161a66; --ring:0 0 0 3px #00bcd433;
-      --glow:0 0 24px #00e0b360, 0 0 40px #00bcd433;
-    }
-    :root[data-theme="light"]{
-      --bg-1:#f0f5f7; --bg-2:#e8eef1;
-      --surface:#fffffff2; --surface-2:#f9fbfcf2;
-      --text:#0b1219; --muted:#4d6b66;
-      --accent:#007a6a; --accent-2:#008ea2;
-      --line:#cde7e1; --chip:#00000008; --chip-border:#009e8a38;
-      --shadow:0 12px 36px #0b121920; --ring:0 0 0 3px #00bcd433;
-      --glow:0 0 20px #00bcd430;
+      /* ===== Dark Theme (Vivid Cyber) ===== */
+      --bg:#05070b; --text:#f4fff6; --muted:#a9f7e1;
+      --card1:#0a1217; --card2:#0c0f24;
+      --accent:#00ffa6; --accent-2:#00d2ff; --accent-3:#ff3df5;
+      --border:rgba(0,255,166,.28);
+      --shadow:0 0 24px rgba(0,255,166,.22);
+      --chip:rgba(255,255,255,.04);
+
+      --grad-1: linear-gradient(135deg, #00ffa6 0%, #00d2ff 100%);
+      --grad-2: linear-gradient(135deg, #00d2ff 0%, #7c4dff 100%);
+      --grad-3: linear-gradient(135deg, #7c4dff 0%, #ff3df5 100%);
+      --grad-4: linear-gradient(135deg, #ff3df5 0%, #ff8a00 100%);
+      --grad-5: linear-gradient(135deg, #ff8a00 0%, #ffe600 100%);
+      --grad-6: linear-gradient(135deg, #ffe600 0%, #00ffa6 100%);
+
+      --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(0,255,166,.12), transparent 60%),
+                    radial-gradient(1200px 600px at 100% 110%, rgba(0,210,255,.10), transparent 60%);
+      --radius: 14px;
+      --glass: rgba(255,255,255,0.04);
+      --duration: 350ms;
     }
 
-    /* =============== Base =============== */
-    *,*::before,*::after{box-sizing:border-box}
+    [data-theme="light"]{
+      --bg:#f6f9fb; --text:#0e1322; --muted:#425b76;
+      --card1:#ffffff; --card2:#eef6ff;
+      --accent:#06c287; --accent-2:#0aa7dd; --accent-3:#b832ff;
+      --border:rgba(0,0,0,.10);
+      --shadow:0 10px 26px rgba(9,30,66,.12);
+      --chip:rgba(8,17,27,.06);
+
+      --grad-1: linear-gradient(135deg, #06c287 0%, #0aa7dd 100%);
+      --grad-2: linear-gradient(135deg, #0aa7dd 0%, #6c63ff 100%);
+      --grad-3: linear-gradient(135deg, #6c63ff 0%, #b832ff 100%);
+      --grad-4: linear-gradient(135deg, #b832ff 0%, #ff7a1a 100%);
+      --grad-5: linear-gradient(135deg, #ff7a1a 0%, #ffd21f 100%);
+      --grad-6: linear-gradient(135deg, #ffd21f 0%, #06c287 100%);
+
+      --section-bg: radial-gradient(1200px 600px at 10% -10%, rgba(6,194,135,.12), transparent 60%),
+                    radial-gradient(1200px 600px at 100% 110%, rgba(10,167,221,.10), transparent 60%);
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0;
-      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:
-        radial-gradient(1200px 700px at 15% -8%, var(--bg-1), transparent 70%),
-        radial-gradient(1200px 700px at 85% 110%, var(--bg-1), transparent 70%),
-        linear-gradient(180deg,var(--bg-1),var(--bg-2));
-      color:var(--text);
-      overflow-x:hidden;
-    }
-    a{color:inherit;text-decoration:none}
-    img{display:block}
-    #matrix{position:fixed;inset:0;z-index:-2}
-    .overlay-grad{position:fixed;inset:0;pointer-events:none;z-index:-1;
-      background:radial-gradient(800px 400px at 20% 15%, #00e0b318, transparent 60%),
-                 radial-gradient(800px 400px at 80% 85%, #00bcd418, transparent 60%);}
-    @media (prefers-reduced-motion: reduce){#matrix,.glitch::before,.glitch::after{display:none}}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .35s ease,color .35s ease}
+    a{color:inherit}
 
-    /* =============== Header / Nav =============== */
-    header{position:sticky;top:0;z-index:60;border-bottom:1px solid var(--line);
-      backdrop-filter:blur(10px); background:linear-gradient(#0008,#0003);}
-    .wrap{max-width:1200px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+    /* Background matrix canvas + overlays */
+    #matrix{position:fixed;inset:0;z-index:-3;background:#000}
+    .radial-overlay{position:fixed;inset:0;pointer-events:none;background:var(--section-bg);z-index:-2}
+    .overlay{position:fixed;inset:0;pointer-events:none;background:var(--section-bg);z-index:-2}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 18px;border-bottom:1px solid var(--border);background:color-mix(in oklab, var(--bg) 82%, transparent)}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:46px;height:46px;border-radius:10px;box-shadow:var(--glow)}
-    .brand h1{margin:0;font-family:'Orbitron',sans-serif;letter-spacing:1px;color:var(--accent);font-size:20px}
+    .brand img{width:44px;height:44px;border-radius:10px;box-shadow:0 0 14px color-mix(in oklab,var(--accent),#fff 20%)}
+    .brand h1{font-family:'Orbitron',sans-serif;letter-spacing:1.2px;margin:0;font-size:20px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-    /* Desktop nav */
-    nav.primary{display:flex;align-items:center;gap:18px}
-    nav.primary a{color:var(--muted);font-weight:600;padding:8px 12px;border-radius:10px;transition:.2s}
-    nav.primary a:hover{color:var(--text);background:var(--chip);box-shadow:var(--ring)}
-    nav.primary a.active{color:var(--text);background:linear-gradient(90deg,var(--chip),transparent);border:1px solid var(--chip-border)}
+    .topnav{display:flex;align-items:center;gap:12px}
+    .topnav a{position:relative;text-decoration:none;font-weight:700;color:var(--muted);padding:8px 10px;border-radius:10px}
+    .topnav a:hover{color:var(--text)}
+    .topnav a::after{content:"";position:absolute;left:10px;right:10px;bottom:6px;height:2px;background:var(--grad-1);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+    .topnav a:hover::after{transform:scaleX(1)}
 
-    /* Hamburger + Drawer */
-    .hamburger{display:none;flex-direction:column;justify-content:space-between;width:28px;height:20px;cursor:pointer}
-    .hamburger span{height:3px;background:var(--accent);border-radius:3px;transition:.3s}
-    .hamburger.active span:nth-child(1){transform:rotate(45deg) translateY(8px)}
-    .hamburger.active span:nth-child(2){opacity:0}
-    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translateY(-8px)}
-    .backdrop{position:fixed;inset:0;background:#000a;opacity:0;visibility:hidden;transition:.2s;z-index:40}
-    .backdrop.show{opacity:1;visibility:visible}
-    .drawer{position:fixed;top:0;left:0;bottom:0;width:min(82vw,320px);background:var(--surface);
-      border-right:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(-100%);transition:transform .28s ease;z-index:41;padding:18px 16px 24px;display:flex;flex-direction:column;gap:6px}
+    .btn{padding:10px 16px;border:none;border-radius:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;background:var(--grad-1);color:#03120e;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,filter .2s;position:relative;overflow:hidden}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 0 34px color-mix(in oklab,var(--accent),#fff 24%);filter:saturate(1.05)}
+    .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:8px 12px;border-radius:12px;font-weight:700}
+
+    .icon-btn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--chip);border:1px solid var(--border);cursor:pointer}
+
+    /* Hamburger */
+    .hamburger{display:none;gap:6px;flex-direction:column;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;border:1px solid var(--border);background:var(--chip);cursor:pointer;transition:transform .2s}
+    .hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s}
+    .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+    .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+    /* Drawer */
+    .drawer{position:fixed;top:0;left:0;height:100dvh;width:320px;max-width:88vw;background:linear-gradient(180deg,var(--card1),var(--card2));border-right:1px solid var(--border);box-shadow:0 0 50px rgba(0,0,0,.35);transform:translateX(-102%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:60;display:flex;flex-direction:column;padding-bottom:24px}
     .drawer.open{transform:translateX(0)}
-    .drawer .drawer-brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-    .drawer a{display:block;padding:12px 10px;border-radius:12px;color:var(--text);font-weight:600}
-    .drawer a:hover{background:var(--chip)}
+    .drawer header{position:relative;background:transparent;border:none;padding:14px 16px}
+    .drawer .menu{display:flex;flex-direction:column;padding:10px}
+    .drawer .menu a{padding:12px 14px;border-radius:12px;margin:6px 6px;color:var(--text);text-decoration:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.03));border:1px solid var(--border)}
+    .drawer .menu a:hover{background:linear-gradient(90deg,rgba(255,255,255,.06),transparent)}
 
-    /* =============== Theme Toggle (footer-right) =============== */
-    .theme-switcher{position:fixed;right:clamp(10px,2.4vw,18px);bottom:calc(env(safe-area-inset-bottom,0px)+clamp(10px,2.4vw,18px));display:flex;flex-direction:column;gap:10px;z-index:70}
-    .theme-btn{width:clamp(38px,4.5vw,46px);height:clamp(38px,4.5vw,46px);border-radius:999px;border:1px solid var(--chip-border);background:var(--chip);display:grid;place-items:center;font-size:clamp(18px,2.4vw,22px);cursor:pointer;color:var(--text);transition:.25s}
-    .theme-btn:hover{transform:rotate(6deg) scale(1.04);box-shadow:var(--ring)}
-    .theme-btn[aria-pressed="true"]{box-shadow:var(--ring)}
+    .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:55}
+    .scrim.show{opacity:1;pointer-events:auto}
 
-    /* =============== Hero (Glitch + Typewriter) =============== */
-    .hero{position:relative;text-align:center;padding:clamp(90px,12vw,160px) 16px 90px}
-    .glitch{position:relative;display:inline-block;font-family:'Orbitron',sans-serif;font-size:clamp(28px,5.6vw,56px);letter-spacing:1px;color:var(--text)}
-    .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;clip-path:inset(0 0 0 0);}
-    .glitch::before{transform:translate(2px,0);color:#00ffd0aa;mix-blend-mode:screen;animation:glitch 2.4s infinite}
-    .glitch::after{transform:translate(-2px,0);color:#00bcd4aa;mix-blend-mode:screen;animation:glitch 2.4s infinite reverse}
-    @keyframes glitch{
-      0%{clip-path:inset(0 0 90% 0)} 10%{clip-path:inset(0 0 0 0)}
-      20%{clip-path:inset(90% 0 0 0)} 30%{clip-path:inset(10% 0 85% 0)}
-      40%{clip-path:inset(80% 0 5% 0)} 50%{clip-path:inset(0 0 0 0)}
-      60%{clip-path:inset(60% 0 20% 0)} 70%{clip-path:inset(0 0 0 0)}
-      80%{clip-path:inset(30% 0 50% 0)} 100%{clip-path:inset(0 0 0 0)}
+    /* Hero */
+    .hero{position:relative;text-align:center;padding:100px 18px 64px;color:var(--text)}
+    .hero::after{content:"";position:absolute;inset:auto 10% -10% 10%;height:2px;background:var(--grad-2);filter:blur(1px);opacity:.7}
+    .hero h2{margin:0;font-size:clamp(28px,5vw,56px);font-family:'Orbitron',sans-serif;letter-spacing:1px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px color-mix(in oklab,var(--accent),#fff 14%))}
+    .hero p{max-width:980px;margin:16px auto 20px;color:var(--muted);font-size:clamp(14px,2.4vw,19px)}
+
+    /* Main layout */
+    main{max-width:1200px;margin:auto;padding:36px 18px}
+    section{margin:48px 0}
+    .section-title{text-align:center;margin:0 0 18px;font-size:clamp(18px,3vw,28px);text-transform:uppercase;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative}
+    .section-title::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-8px;width:140px;height:3px;background:var(--grad-3);border-radius:999px;box-shadow:0 0 18px color-mix(in oklab,var(--accent-3),#fff 10%)}
+
+    /* Colored section wrappers */
+    #about{background:linear-gradient(180deg, transparent, rgba(0,255,166,.03));padding:18px;border-radius:16px}
+    #services{background:linear-gradient(180deg, transparent, rgba(0,210,255,.03));padding:18px;border-radius:16px}
+    #portfolio{background:linear-gradient(180deg, transparent, rgba(255,61,245,.03));padding:18px;border-radius:16px}
+    #contact{background:linear-gradient(180deg, transparent, rgba(255,138,0,.03));padding:18px;border-radius:16px}
+
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+    /* Colorful cards */
+    .card{position:relative;border-radius:var(--radius);padding:20px;background:linear-gradient(135deg,color-mix(in oklab,var(--card1),#000 12%),color-mix(in oklab,var(--card2),#000 6%));border:1px solid var(--border);box-shadow:var(--shadow);transition:transform .35s,box-shadow .35s,filter .2s;transform-origin:center;will-change:transform}
+    .card::after{content:"";position:absolute;inset:-1px;border-radius:calc(var(--radius) + 2px);background:var(--grad-1);filter:blur(14px);opacity:.12;z-index:-1;transition:opacity .3s}
+    .card:nth-child(2)::after{background:var(--grad-2)}
+    .card:nth-child(3)::after{background:var(--grad-3)}
+    .card:nth-child(4)::after{background:var(--grad-4)}
+    .card:nth-child(5)::after{background:var(--grad-5)}
+    .card:nth-child(6)::after{background:var(--grad-6)}
+    .card:hover{transform:translateY(-8px) rotateX(2deg) rotateY(3deg) scale(1.02);box-shadow:0 0 44px color-mix(in oklab,var(--accent),#fff 24%);filter:saturate(1.06)}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .card p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+
+    /* small helper text / microcopy inside cards */
+    .micro { font-size:12px; color:var(--muted); margin-top:8px; display:block; }
+
+    /* Stats */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+    .stat{position:relative;border-radius:14px;padding:16px;background:conic-gradient(from 0.25turn at 50% 50%, rgba(0,210,255,.06), rgba(0,255,166,.06));border:1px solid var(--border);text-align:center;overflow:hidden}
+    .stat::before{content:"";position:absolute;inset:-2px;border-radius:16px;background:var(--grad-2);filter:blur(18px);opacity:.12;z-index:-1}
+    .stat .num{font-size:28px;font-weight:900;background:linear-gradient(90deg,var(--accent-2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .stat .label{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* Contact form - integrated & glass */
+    form .field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+    label{font-weight:700;color:var(--text);font-size:13px}
+    .input,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:color-mix(in oklab,var(--card1),#000 8%);color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
+    .input:focus,textarea:focus{border:1px solid color-mix(in oklab,var(--accent),#fff 12%);box-shadow:0 0 0 6px color-mix(in oklab,var(--accent),#fff 12%)}
+    .contact-card{max-width:700px;margin:18px auto;padding:18px;border-radius:12px;background:rgba(255,255,255,0.03);backdrop-filter: blur(8px);border:1px solid var(--border)}
+
+    /* Panels */
+    #adminPanel,#userPanel{display:none;margin:22px auto;padding:18px;border-radius:12px;max-width:1000px;background:linear-gradient(135deg,color-mix(in oklab,var(--card2),#000 15%),color-mix(in oklab,var(--card1),#000 10%));border:1px solid var(--border);position:relative}
+    #adminPanel::before,#userPanel::before{content:"";position:absolute;inset:-2px;border-radius:14px;background:var(--grad-1);z-index:-1;filter:blur(20px);opacity:.18}
+
+    /* Footer */
+    footer{position:relative;margin-top:40px;padding:26px 18px;text-align:center;border-top:1px solid var(--border);background:color-mix(in oklab,var(--bg) 85%, transparent);color:var(--muted)}
+    footer a{color:var(--text);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    .theme-fab{position:fixed;right:20px;bottom:20px;width:52px;height:52px;border-radius:50%;border:1px solid var(--border);background:var(--grad-1);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow);z-index:60}
+
+    /* Tiny micro UI: tooltips, hints */
+    .hint { font-size:12px; color:var(--muted); display:inline-block; margin-left:8px; vertical-align:middle; }
+    .kpi { display:inline-block; font-size:12px; color:var(--muted); padding:6px 8px; border-radius:8px; border:1px dashed var(--border); background:var(--chip); }
+
+    /* Animations */
+    @keyframes fadeInDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes glowPulse { from { text-shadow: 0 0 8px var(--accent); } to { text-shadow: 0 0 22px var(--accent-2); } }
+    @keyframes borderGlow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+
+    /* Text animations */
+    .hero h2 { animation: fadeInDown .9s ease forwards; opacity:0; }
+    .hero p { animation: fadeInUp 1.1s ease forwards; opacity:0; }
+    .btn::before { content:""; position:absolute; inset:0; border-radius:inherit; padding:2px; background:linear-gradient(45deg, var(--accent), var(--accent-2), var(--accent-3)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: borderGlow 6s linear infinite; opacity:.18; pointer-events:none; }
+    .stat .num { animation: glowPulse 2s infinite alternate; }
+
+    /* Scroll-in reveal */
+    section { opacity:0; transform: translateY(26px); transition: all .7s cubic-bezier(.2,.9,.2,1); }
+    section.show { opacity:1; transform: translateY(0); }
+
+    /* Responsiveness */
+    @media (max-width:980px){
+      .topnav{display:none}
+      .hamburger{display:flex}
+      .brand h1{font-size:16px}
+      .hero{padding:72px 16px 48px}
     }
-    .type{margin-top:10px;font-size:clamp(16px,2.4vw,20px);color:var(--muted);min-height:1.6em}
-    .cursor{display:inline-block;width:10px;margin-left:3px;border-right:2px solid var(--accent);animation:blink 1s steps(1) infinite}
-    @keyframes blink{50%{border-color:transparent}}
-    .cta{margin-top:26px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-    .btn{padding:12px 22px;border:none;border-radius:12px;font-weight:800;letter-spacing:.5px;cursor:pointer;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#00221d;transition:.2s}
-    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px #00e0b333}
 
-    /* =============== Sections / Cards =============== */
-    main{max-width:1200px;margin:auto;padding:60px 16px}
-    section{margin:72px 0}
-    .section-title{text-align:center;font-size:clamp(22px,2.6vw,30px);color:var(--accent);text-transform:uppercase;margin:0 0 24px;position:relative;display:inline-block;left:50%;transform:translateX(-50%)}
-    .section-title::after{content:"";display:block;height:2px;width:64%;margin:10px auto 0;background:linear-gradient(90deg,transparent,var(--accent),transparent);box-shadow:var(--glow)}
-    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .2s, box-shadow .2s;box-shadow:var(--shadow);transform-style:preserve-3d}
-    .card:hover{transform:translateY(-4px) rotateX(3deg) rotateY(-3deg);box-shadow:0 18px 40px #00e0b31f}
-    .stats{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:10px}
-    .stat{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-align:center;min-width:160px;box-shadow:var(--shadow)}
-    .stat .num{font-size:30px;font-weight:800;color:var(--accent)}
-    .stat .label{font-size:13px;color:var(--muted)}
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none!important; animation:none!important}
+      #matrix{display:none}
+    }
 
-    /* =============== Contact =============== */
-    form.contact{max-width:780px;margin:0 auto;display:grid;gap:12px}
-    .in{width:100%;padding:14px 14px;border-radius:12px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface),#ffffff 2%);color:var(--text);outline:none;transition:.2s}
-    .in:focus{border-color:var(--accent);box-shadow:var(--ring)}
-    .in::placeholder{color:var(--muted)}
+    /* Small utility classes */
+    .flex { display:flex; gap:12px; align-items:center; }
+    .space-between { display:flex; justify-content:space-between; align-items:center; }
+    .muted { color:var(--muted); font-size:13px; }
+    .center { text-align:center; }
 
-    /* =============== Panels =============== */
-    #adminPanel,#userPanel{display:none;margin:30px auto;padding:22px;border:1px dashed var(--accent);border-radius:12px;max-width:1000px;background:var(--surface)}
-
-    /* =============== Footer =============== */
-    footer{background:linear-gradient(to top,#0009,#0003);padding:24px 16px;text-align:center;border-top:1px solid var(--line);color:var(--muted)}
-    footer a{color:var(--accent)} footer a:hover{text-decoration:underline}
-
-    /* =============== Responsive =============== */
-    @media (max-width:860px){nav.primary{display:none}.hamburger{display:flex}}
+    /* tiny clickable hint for small text 'tex' */
+    .micro-action { font-size:12px; padding:6px 8px; border-radius:8px; border:1px solid var(--border); background:var(--chip); cursor:pointer; display:inline-flex; gap:8px; align-items:center; }
   </style>
 </head>
-<body>
-  <!-- Matrix & gradient overlays -->
-  <canvas id="matrix"></canvas>
-  <div class="overlay-grad" aria-hidden="true"></div>
+<body data-theme="dark">
+  <!-- MATRIX CANVAS -->
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="radial-overlay" aria-hidden="true"></div>
 
-  <!-- Header -->
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <img src="1000058324.png" alt="DarkLight Logo">
-        <h1>DarkLight000999</h1>
+  <!-- DRAWER -->
+  <aside id="drawer" class="drawer" aria-hidden="true" aria-label="Primary navigation">
+    <header>
+      <div class="brand"><img src="1000058324.png" alt="DarkLight Logo"><h1>DarkLight000999</h1></div>
+    </header>
+    <nav class="menu" role="navigation" aria-label="Side menu">
+      <a href="#about" onclick="closeDrawer()">About</a>
+      <a href="#services" onclick="closeDrawer()">Services</a>
+      <a href="#portfolio" onclick="closeDrawer()">Portfolio</a>
+      <a href="#contact" onclick="closeDrawer()">Contact</a>
+      <div style="padding:10px;">
+        <button class="btn" style="width:100%;" onclick="logout()" aria-label="Logout">Logout</button>
+        <button class="btn-outline" style="width:100%;margin-top:8px" onclick="toggleTheme()" id="drawerTheme" aria-label="Toggle theme">🌑 / 🌞</button>
       </div>
+    </nav>
+  </aside>
+  <div id="scrim" class="scrim" onclick="closeDrawer()" aria-hidden="true"></div>
 
-      <nav class="primary" aria-label="मुख्य मेन्यू">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <button class="hamburger" id="openDrawer" aria-label="मेन्यू खोलें" aria-expanded="false" aria-controls="mobileDrawer">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- HEADER -->
+  <header role="banner">
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="brand" style="gap:10px;">
+      <img src="1000058324.png" alt="DarkLight Logo" />
+      <h1>DarkLight000999</h1>
     </div>
+
+    <nav class="topnav" role="navigation" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+      <button class="btn-outline" id="headerTheme" onclick="toggleTheme()" title="Toggle theme" aria-pressed="false">🌑</button>
+      <button class="btn" onclick="logout()" aria-label="Logout">Logout</button>
+    </nav>
   </header>
 
-  <!-- Drawer + Backdrop -->
-  <div class="backdrop" id="drawerBackdrop" hidden></div>
-  <aside class="drawer" id="mobileDrawer" aria-label="मोबाइल मेन्यू" aria-hidden="true">
-    <div class="drawer-brand">
-      <img src="1000058324.png" alt="DarkLight Logo" style="width:36px;height:36px;border-radius:8px" />
-      <strong style="font-family:'Orbitron',sans-serif;color:var(--accent)">DarkLight000999</strong>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <h2 id="hero-title">राष्ट्रीय ग्रेड साइबरसिक्योरिटी (NGC)</h2>
+    <p>हम साइबर युद्ध के खिलाफ अग्रिम पंक्ति हैं — एंटरप्राइज़, सरकारें और क्रिटिकल इंफ्रास्ट्रक्चर की रक्षा के लिए AI-संचालित डिफेंस।</p>
+
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:14px">
+      <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" aria-label="Get Protected">Get Protected</button>
+      <button class="btn-outline micro-action" onclick="showContactTips()" title="Quick contact options">Quick Contact <span class="hint">→</span></button>
     </div>
-    <a href="#about" data-close>About</a>
-    <a href="#services" data-close>Services</a>
-    <a href="#portfolio" data-close>Portfolio</a>
-    <a href="#contact" data-close>Contact</a>
-  </aside>
 
-  <!-- Theme Toggle (footer-right) -->
-  <div class="theme-switcher" role="group" aria-label="Theme toggle">
-    <button class="theme-btn" id="btnDark" data-theme-btn="dark" aria-pressed="true" type="button" title="डार्क">🌑</button>
-    <button class="theme-btn" id="btnLight" data-theme-btn="light" aria-pressed="false" type="button" title="लाइट">🌞</button>
-  </div>
-
-  <!-- Hero -->
-  <section class="hero">
-    <h2 class="glitch" data-text="National Grade Cybersecurity (NGC)">National Grade Cybersecurity (NGC)</h2>
-    <div class="type" id="typeTarget" aria-live="polite"></div>
-    <div class="cta">
-      <a href="#contact" class="btn">Get Protected</a>
-      <a href="#services" class="btn" style="background:linear-gradient(90deg,var(--accent-2),var(--accent))">Explore Services</a>
+    <div style="margin-top:14px;font-size:13px;color:var(--muted)">
+      <span class="kpi">24×7 SOC</span>
+      <span class="kpi">Compliance Ready</span>
+      <span class="kpi">Gov / Enterprise</span>
     </div>
   </section>
 
-  <!-- Main -->
   <main>
-    <section id="about">
-      <h2 class="section-title">About Us</h2>
-      <p style="max-width:900px;margin:0 auto;color:var(--muted);text-align:center">
-        DarkLight000999 NGC is a national-grade cybersecurity organization providing ethical hacking, penetration testing, SOC,
-        digital forensics, cyber threat intelligence and 24/7 incident response.
-      </p>
-    </section>
-
-    <section id="services">
-      <h2 class="section-title">Services</h2>
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">About Us</h2>
       <div class="grid">
-        <div class="card tilt">Advanced Penetration Testing</div>
-        <div class="card tilt">Next-Gen SOC &amp; Threat Hunting</div>
-        <div class="card tilt">Critical Infrastructure Security</div>
-        <div class="card tilt">Digital Forensics &amp; Incident Response</div>
-        <div class="card tilt">AI-driven Threat Intelligence</div>
-        <div class="card tilt">Red Team / Blue Team Training</div>
+        <article class="card" tabindex="0" role="article" aria-labelledby="m1">
+          <h3 id="m1">Mission</h3>
+          <p>Ethical hacking, penetration testing, DFIR, SOC & cyber threat intel — 24×7 response.</p>
+          <span class="micro">Mission detail: Zero-trust blueprints • Rapid IR playbooks</span>
+        </article>
+
+        <article class="card" tabindex="0" role="article" aria-labelledby="v1">
+          <h3 id="v1">Values</h3>
+          <p>Zero-trust by default • Privacy first • AI-assisted analysts • Compliance-ready reports.</p>
+          <span class="micro">Values snippet: Ethics, Transparency, Resilience</span>
+        </article>
+
+        <article class="card" tabindex="0" role="article" aria-labelledby="c1">
+          <h3 id="c1">Coverage</h3>
+          <p>Gov, PSU, BFSI, Energy, Telecom, Defense • On-prem & cloud workloads.</p>
+          <span class="micro">Coverage: Hybrid-cloud, OT/ICS, Edge-Devices</span>
+        </article>
       </div>
     </section>
 
-    <section id="portfolio">
-      <h2 class="section-title">Portfolio / Case Studies</h2>
+    <!-- SERVICES -->
+    <section id="services" aria-labelledby="services-title">
+      <h2 class="section-title" id="services-title">Services</h2>
+      <div class="grid">
+        <article class="card" tabindex="0"><h3>🔐 Advanced Penetration Testing</h3><p>Full-stack, cloud, IoT & mobile with exploit chain simulation.</p><span class="micro">Red team playbooks • Custom exploit dev</span></article>
+        <article class="card" tabindex="0"><h3>🛰️ Next-Gen SOC & Threat Hunting</h3><p>MITRE ATT&CK mapping, UEBA & continuous hunt playbooks.</p><span class="micro">SIEM + XDR integrations</span></article>
+        <article class="card" tabindex="0"><h3>⚡ Critical Infrastructure Security</h3><p>ICS/SCADA hardening, Red/Blue/Purple exercises.</p><span class="micro">Safety-first OT methodologies</span></article>
+        <article class="card" tabindex="0"><h3>🧬 DFIR</h3><p>Forensics, malware triage, legal-grade evidence.</p><span class="micro">Chain-of-custody & reporting</span></article>
+        <article class="card" tabindex="0"><h3>🤖 AI-driven Threat Intel</h3><p>OSINT/Darkweb monitoring, risk scoring, auto-enrichment.</p><span class="micro">Auto triage & enrichment</span></article>
+        <article class="card" tabindex="0"><h3>🎯 Training</h3><p>Red Team / Blue Team bootcamps & tabletop drills.</p><span class="micro">Custom curriculum • CTF labs</span></article>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" aria-labelledby="portfolio-title">
+      <h2 class="section-title" id="portfolio-title">Portfolio / Case Studies</h2>
       <div class="stats">
-        <div class="stat tilt"><div class="num">200+</div><div class="label">Gov &amp; Enterprise Clients</div></div>
-        <div class="stat tilt"><div class="num">10K+</div><div class="label">Cyberattacks Prevented</div></div>
-        <div class="stat tilt"><div class="num">24/7</div><div class="label">Continuous Monitoring</div></div>
+        <div class="stat" aria-live="polite"><div class="num">200+</div><div class="label">Gov & Enterprise Clients</div></div>
+        <div class="stat" aria-live="polite"><div class="num">10K+</div><div class="label">Cyberattacks Prevented</div></div>
+        <div class="stat" aria-live="polite"><div class="num">24/7</div><div class="label">Continuous Monitoring</div></div>
+        <div class="stat" aria-live="polite"><div class="num">99.98%</div><div class="label">SLA Uptime</div></div>
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button class="btn-outline micro-action" onclick="downloadReport()">Download One-Pager</button>
+        <span class="hint">Case studies, sanitized for confidentiality</span>
       </div>
     </section>
 
-    <section id="contact">
-      <h2 class="section-title">Contact Us</h2>
-      <form class="contact" onsubmit="event.preventDefault(); alert('Message sent!');">
-        <input class="in" type="text" placeholder="Your Name" required>
-        <input class="in" type="email" placeholder="Your Email" required>
-        <textarea class="in" placeholder="Your Message" rows="5" required></textarea>
-        <button class="btn" type="submit">Send</button>
-      </form>
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Contact Us</h2>
+
+      <div class="contact-card" role="region" aria-label="Contact form">
+        <form id="contactForm" action="https://formspree.io/f/xqadbagz" method="POST" class="contact-form" novalidate>
+          <!-- small helper micro instructions are required as per request -->
+          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">कृपया सभी फील्ड भरें — हम 24 घंटे में उत्तर देंगे।</div>
+
+          <div class="field">
+            <label for="name">Your Name <span class="kpi">required</span></label>
+            <input id="name" class="input" type="text" name="name" placeholder="Enter your full name" required aria-required="true">
+            <div class="muted" id="nameHelp">नाम — पूरा नाम लिखें।</div>
+          </div>
+
+          <div class="field">
+            <label for="email">Your Email <span class="kpi">required</span></label>
+            <input id="email" class="input" type="email" name="email" placeholder="Enter your email address" required aria-required="true">
+            <div class="muted" id="emailHelp">हम केवल आधिकारिक संपर्क के लिए ईमेल का प्रयोग करते हैं।</div>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone <span class="kpi">optional</span></label>
+            <input id="phone" class="input" type="tel" name="phone" placeholder="+91 9XXXXXXXX">
+            <div class="muted">यदि चाहें तो नंबर दें — तेज संपर्क हेतु।</div>
+          </div>
+
+          <div class="field">
+            <label for="message">Your Message <span class="kpi">required</span></label>
+            <textarea id="message" class="input" name="message" rows="5" placeholder="Type your message here..." required aria-required="true"></textarea>
+            <div class="muted">जितना संभव हो उतनी जानकारी दें (टाइमस्टैम्प, प्रभावित सिस्टम)।</div>
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+            <button type="submit" class="btn" aria-label="Send Message">Send Your Message</button>
+            <button type="button" class="btn-outline" onclick="fillTestMessage()" aria-label="Fill test message">Fill Example</button>
+            <div class="muted" id="formStatus" role="status" aria-live="polite"></div>
+          </div>
+
+          <div style="margin-top:10px;font-size:12px;color:var(--muted)">By submitting you agree to our <a href="#" aria-label="Privacy Policy Link">Privacy Policy</a>.</div>
+        </form>
+      </div>
     </section>
 
-    <!-- Panels shown after auth -->
-    <div id="adminPanel">
+    <!-- ADMIN / USER PANELS (VISIBLE WHEN AUTH) -->
+    <div id="adminPanel" aria-live="polite">
       <h2>🔐 Admin Control Center</h2>
       <p>Welcome, Super Admin. Manage DarkLight NGC operations securely.</p>
-      <button class="btn" onclick="logout()">Logout</button>
+      <div style="display:flex;gap:12px">
+        <button class="btn" onclick="logout()">Logout</button>
+        <button class="btn-outline" onclick="simulateAlert()">Simulate Alert</button>
+        <span class="muted">Admin quick actions & small-text options are here.</span>
+      </div>
     </div>
 
-    <div id="userPanel">
+    <div id="userPanel" aria-live="polite">
       <h2>👤 Secure Client Portal</h2>
-      <p>Welcome to your DarkLight000999 dashboard. Access your reports and monitoring data here.</p>
-      <button class="btn" onclick="logout()">Logout</button>
+      <p>Welcome to your dashboard. Access reports, alerts and monitoring data here.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn" onclick="openReports()">Open Reports</button>
+        <button class="btn-outline" onclick="downloadLogs()">Download Logs</button>
+      </div>
     </div>
+
   </main>
 
-  <!-- Footer -->
-  <footer>
+  <!-- FOOTER -->
+  <footer role="contentinfo">
     <p>© 2025 DarkLight000999 — National Grade Cybersecurity Agency | All Rights Reserved</p>
-    <div>
-      <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">LinkedIn</a> | <a href="#">GitHub</a>
+    <div style="margin-top:8px">
+      <a href="#" aria-label="Privacy Policy Footer">Privacy Policy</a> · <a href="#" aria-label="Terms Footer">Terms</a> · <a href="#" aria-label="LinkedIn Footer">LinkedIn</a> · <a href="#" aria-label="GitHub Footer">GitHub</a>
     </div>
+    <button class="theme-fab" id="footerTheme" onclick="toggleTheme()" title="Toggle theme" aria-pressed="false">🌑</button>
   </footer>
 
-  <!-- ========== Matrix Rain (optimized) ========== -->
+  <!-- ===== SCRIPTS: Matrix, Interactions, Animations, Counters, Firebase (client only) ===== -->
   <script>
-    const c = document.getElementById('matrix'); const ctx = c.getContext('2d');
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
-    let fontSize = 14, columns, drops;
-    function resize(){
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      c.width = Math.floor(innerWidth * dpr); c.height = Math.floor(innerHeight * dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      fontSize = Math.max(12, Math.min(18, Math.round(innerWidth/90)));
-      columns = Math.floor(innerWidth / fontSize); drops = Array(columns).fill(1);
-    }
-    resize(); addEventListener('resize', resize);
-    function draw(){
-      ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fillRect(0,0,c.width,c.height);
-      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#0f0';
-      ctx.font = fontSize + 'px monospace';
-      for(let i=0;i<drops.length;i++){
-        const ch = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(ch, i*fontSize, drops[i]*fontSize);
-        if(drops[i]*fontSize > c.height && Math.random() > 0.975){ drops[i] = 0; } drops[i]++;
+    /* ===== Matrix Rain (respects reduced motion) ===== */
+    (function(){
+      const matrix = document.getElementById('matrix');
+      if(!matrix) return;
+      const ctx = matrix.getContext('2d');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function resize(){ matrix.width = window.innerWidth; matrix.height = window.innerHeight; init(); }
+      let fontSize = 14;
+      let columns = [];
+      function init(){
+        fontSize = Math.max(12, Math.floor(window.innerWidth / 120));
+        columns = Array(Math.ceil(matrix.width / fontSize)).fill(1);
       }
-      requestAnimationFrame(draw);
-    }
-    if(!matchMedia('(prefers-reduced-motion: reduce)').matches){ draw(); }
-  </script>
-
-  <!-- ========== Firebase Auth visibility control (put your keys) ========== -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    setPersistence(auth, browserLocalPersistence);
-
-    const adminEmail = "darklightrkshackers@gmail.com";
-
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-        (user.email===adminEmail ? adminPanel : userPanel).style.display = "block";
-      } else {
-        // पब्लिक साइट विज़िबल रहे; अगर लॉगिन-आवश्यक पन्ना है तो redirect लगाएं:
-        // window.location.href = "index.html";
+      resize();
+      window.addEventListener('resize', resize);
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+      let anim = null;
+      function draw(){
+        ctx.fillStyle = 'rgba(0,0,0,0.08)';
+        ctx.fillRect(0,0,matrix.width,matrix.height);
+        ctx.fillStyle = 'rgba(0,255,170,0.9)';
+        ctx.font = fontSize + 'px monospace';
+        for(let i=0;i<columns.length;i++){
+          const ch = letters[Math.floor(Math.random()*letters.length)];
+          ctx.fillText(ch, i*fontSize, columns[i]*fontSize);
+          if(columns[i]*fontSize > matrix.height && Math.random() > 0.975) columns[i] = 0;
+          columns[i]++;
+        }
       }
-    });
-
-    function logout(){
-      signOut(auth).then(()=>{ window.location.href="index.html"; });
-    }
-    window.logout=logout;
-  </script>
-
-  <!-- ========== Theme, Drawer, Scroll-Active, Tilt, Typewriter ========== -->
-  <script>
-    /* Theme */
-    const themeBtns = document.querySelectorAll('[data-theme-btn]');
-    (function initTheme(){
-      const saved = localStorage.getItem('theme');
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      const theme = (saved==='light'||saved==='dark') ? saved : (prefersLight?'light':'dark');
-      document.documentElement.setAttribute('data-theme', theme);
-      themeBtns.forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.themeBtn===theme)));
+      function start(){
+        if(prefersReduced) return;
+        stop();
+        anim = setInterval(draw, 33);
+      }
+      function stop(){ if(anim) clearInterval(anim); anim = null; }
+      start();
+      window.startMatrix = start; window.stopMatrix = stop;
     })();
-    themeBtns.forEach(btn=>btn.addEventListener('click',()=>{
-      const theme = btn.dataset.themeBtn;
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      themeBtns.forEach(b=>b.setAttribute('aria-pressed', String(b===btn)));
-    }));
 
-    /* Drawer */
-    const openBtn = document.getElementById('openDrawer');
-    const drawer = document.getElementById('mobileDrawer');
-    const backdrop = document.getElementById('drawerBackdrop');
-    const toggleDrawer = ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    /* ===== Drawer Controls & Accessibility ===== */
+    const drawer = document.getElementById('drawer');
+    const scrim = document.getElementById('scrim');
+    const burger = document.getElementById('hamburger');
+    let lastFocused = null;
     function openDrawer(){
+      lastFocused = document.activeElement;
       drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false');
-      backdrop.hidden=false; backdrop.classList.add('show');
-      openBtn.classList.add('active'); openBtn.setAttribute('aria-expanded','true');
+      scrim.classList.add('show'); burger.setAttribute('aria-expanded','true');
+      const f = drawer.querySelector('a,button'); if(f) f.focus();
+      document.addEventListener('keydown', trapTab);
     }
     function closeDrawer(){
       drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true');
-      backdrop.classList.remove('show'); setTimeout(()=>backdrop.hidden=true,180);
-      openBtn.classList.remove('active'); openBtn.setAttribute('aria-expanded','false');
+      scrim.classList.remove('show'); burger.setAttribute('aria-expanded','false');
+      document.removeEventListener('keydown', trapTab);
+      if(lastFocused) lastFocused.focus();
     }
-    openBtn.addEventListener('click', toggleDrawer);
-    backdrop.addEventListener('click', closeDrawer);
-    drawer.querySelectorAll('[data-close]').forEach(a=>a.addEventListener('click', closeDrawer));
-    addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+    function trapTab(e){
+      if(e.key === 'Escape'){ closeDrawer(); return; }
+      if(e.key !== 'Tab') return;
+      const focusables = drawer.querySelectorAll('a,button');
+      const first = focusables[0], last = focusables[focusables.length-1];
+      if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+      else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+    }
+    burger.addEventListener('click', ()=>{ drawer.classList.contains('open') ? closeDrawer() : openDrawer(); });
 
-    /* Scroll Active Link */
-    const sections = ['about','services','portfolio','contact'].map(id=>document.getElementById(id));
-    const navLinks = Array.from(document.querySelectorAll('nav.primary a'));
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        const id = entry.target.id;
-        const link = navLinks.find(a=>a.getAttribute('href') === '#'+id);
-        if(link){ entry.isIntersecting ? link.classList.add('active') : link.classList.remove('active'); }
+    window.closeDrawer = closeDrawer;
+
+    /* ===== Theme Toggle with Persistence ===== */
+    const THEME_KEY = 'dl-theme';
+    const body = document.body;
+    function applyThemeIcon(){
+      const isLight = body.getAttribute('data-theme') === 'light';
+      document.getElementById('headerTheme')?.setAttribute('title', isLight ? 'Dark' : 'Light');
+      document.getElementById('headerTheme')?.replaceChildren(document.createTextNode(isLight ? '🌞' : '🌑'));
+      document.getElementById('footerTheme')?.replaceChildren(document.createTextNode(isLight ? '🌞' : '🌑'));
+      document.getElementById('drawerTheme')?.replaceChildren(document.createTextNode(isLight ? '🌞' : '🌑'));
+      document.querySelectorAll('.theme-fab').forEach(el => el.setAttribute('aria-pressed', isLight));
+    }
+    function setTheme(mode){ body.setAttribute('data-theme', mode); localStorage.setItem(THEME_KEY, mode); applyThemeIcon(); }
+    function toggleTheme(){ const mode = body.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; setTheme(mode); }
+    window.toggleTheme = toggleTheme;
+    const stored = localStorage.getItem(THEME_KEY);
+    if(stored){ setTheme(stored); } else { setTheme('dark'); }
+
+    /* ===== Scroll Reveal for sections (IntersectionObserver) ===== */
+    const sections = document.querySelectorAll('section');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.classList.add('show'); }
       });
-    },{root:null, rootMargin:'-40% 0px -50% 0px', threshold:0});
-    sections.forEach(sec=>sec && obs.observe(sec));
+    }, { threshold: 0.18 });
+    sections.forEach(s => io.observe(s));
 
-    /* 3D Tilt (lightweight) */
-    const tiltEls = document.querySelectorAll('.tilt');
-    tiltEls.forEach(el=>{
-      el.addEventListener('mousemove', e=>{
-        const r = el.getBoundingClientRect();
-        const x = (e.clientX - r.left)/r.width, y = (e.clientY - r.top)/r.height;
-        const rx = (y - .5) * 6, ry = (x - .5) * -6;
-        el.style.transform = `translateY(-4px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    /* ===== Stats count-up (respects reduced motion) ===== */
+    function animateCounters(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('.stat .num').forEach(el=>{
+        const raw = el.textContent.trim();
+        const onlyDigits = raw.replace(/[^\d]/g,'') || '0';
+        const target = parseInt(onlyDigits,10);
+        if(prefersReduced || target <= 0){ el.textContent = raw; return; }
+        let start = 0;
+        const duration = 1200;
+        const step = (timestamp)=>{
+          start += Math.ceil(target/30);
+          if(start >= target){ el.textContent = target.toLocaleString() + (raw.includes('+') ? '+' : ''); return; }
+          el.textContent = start.toLocaleString() + (raw.includes('+') ? '+' : '');
+          requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
       });
-      el.addEventListener('mouseleave', ()=> el.style.transform = '');
-    });
+    }
+    // Run when portfolio section visible
+    const portfolio = document.getElementById('portfolio');
+    if(portfolio){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ animateCounters(); obs.disconnect(); }
+        });
+      }, {threshold:0.25});
+      obs.observe(portfolio);
+    } else {
+      animateCounters();
+    }
 
-    /* Typewriter lines */
-    const lines = [
-      'We are the frontline against cyber warfare.',
-      'AI-driven defense for Enterprises & Governments.',
-      '24/7 SOC • Threat Hunting • DFIR • Red/Blue Team.'
-    ];
-    const target = document.getElementById('typeTarget');
-    let i=0, j=0, erasing=false;
-    function type(){
-      const line = lines[i];
-      if(!erasing){
-        target.textContent = line.slice(0, j++) ;
-        if(j<=line.length){ setTimeout(type, 24); }
-        else { setTimeout(()=>{erasing=true; type();}, 1200); }
-      }else{
-        target.textContent = line.slice(0, j--) ;
-        if(j>=0){ setTimeout(type, 16); }
-        else { erasing=false; i=(i+1)%lines.length; setTimeout(type, 180); }
+    /* ===== Card mouse tilt (small, performant) ===== */
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return;
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card=>{
+        card.addEventListener('mousemove', (e)=>{
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width;
+          const y = (e.clientY - rect.top) / rect.height;
+          const rx = (y - 0.5) * 8;
+          const ry = (x - 0.5) * -8;
+          card.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', ()=>{ card.style.transform = ''; });
+      });
+    })();
+
+    /* ===== Contact form: client-side validation + micro UX ===== */
+    const contactForm = document.getElementById('contactForm');
+    if(contactForm){
+      contactForm.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const status = document.getElementById('formStatus');
+        status.textContent = 'Sending...';
+        const data = new FormData(contactForm);
+        try{
+          // using formspree endpoint from original - can be replaced
+          const res = await fetch(contactForm.action, { method:'POST', body: data, headers:{ 'Accept':'application/json' }});
+          if(res.ok){
+            status.textContent = 'Message sent. हम जल्द जवाब देंगे।';
+            contactForm.reset();
+          } else {
+            status.textContent = 'Submission failed — कृपया बाद में पुनः प्रयास करें।';
+          }
+        } catch(err){
+          console.error(err);
+          status.textContent = 'Network error — जाँच करें आपकी कनेक्शन।';
+        }
+        setTimeout(()=> status.textContent = '', 6000);
+      });
+    }
+
+    /* ===== Small helper actions (micro interactions) ===== */
+    function fillTestMessage(){
+      document.getElementById('name').value = 'राहुल शर्मा';
+      document.getElementById('email').value = 'rahul@example.com';
+      document.getElementById('phone').value = '+91 98765 43210';
+      document.getElementById('message').value = 'हमारे AWS VPC में अनपेक्षित लॉगिन प्रयास देखे गए। कृपया जाँच करें — सिस्टम: webapp-prod-1, तिथि: 2025-08-31 23:42 IST.';
+    }
+    function showContactTips(){
+      alert('Quick contact options:\n• Emergency: +91-11-0000-0000\n• Email (secure): incidents@darklight999.example\n• Use the form for non-urgent requests.');
+    }
+    function downloadReport(){ alert('Downloading one-pager (sanitized)...'); /* Placeholder */ }
+    function openReports(){ alert('Open Reports — requires auth.'); }
+    function downloadLogs(){ alert('Preparing logs — requires auth.'); }
+    function simulateAlert(){ alert('Simulated alert generated — admin only.'); }
+
+    /* ===== Utility: small downloads (example: create one-pager PDF client-side) ===== */
+    function downloadOnePagerPDF(){
+      /* Placeholder for server or client-side PDF generation.
+         If required, implement html2pdf or server endpoint. */
+      alert('One-pager PDF generation not yet implemented (placeholder).');
+    }
+
+    /* ===== Auth (Firebase) - dynamic import as original (client only) ===== */
+    (async ()=>{
+      try{
+        // NOTE: This uses public Firebase JS CDN — change to your version if required
+        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js');
+        const { getAuth, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence } = await import('https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js');
+
+        const firebaseConfig = {
+          apiKey: 'AIzaSyB8Ydj__jisqUsU1NGTXruCGsTi7wmIw8o',
+          authDomain: 'elegant-moment-470412-h3.firebaseapp.com',
+          projectId: 'elegant-moment-470412-h3',
+          storageBucket: 'elegant-moment-470412-h3.firebasestorage.app',
+          messagingSenderId: '948629350861',
+          appId: '1:948629350861:web:5d9e141e3bce27dd657c84'
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        await setPersistence(auth, browserLocalPersistence);
+
+        const adminEmail = 'darklightrkshackers@gmail.com'; // change if needed
+        onAuthStateChanged(auth, user => {
+          if(user){
+            if(user.email === adminEmail){ document.getElementById('adminPanel').style.display='block'; }
+            else { document.getElementById('userPanel').style.display='block'; }
+          } else {
+            // not signed in: panels remain hidden
+          }
+        });
+        window.logout = ()=> signOut(auth).then(()=>{ window.location.href='index.html'; }).catch(()=>{ window.location.href='index.html'; });
+      } catch(err){
+        console.warn('Firebase modules not loaded or blocked:', err);
+        // provide fallback logout for demo
+        window.logout = ()=> { alert('Logout (demo) — Firebase not initialized.'); };
       }
-    }
-    type();
+    })();
+
+    /* ===== Small accessibility: focus outlines for keyboard users ===== */
+    (function(){
+      function handleFirstTab(e){
+        if(e.key === 'Tab'){
+          document.documentElement.classList.add('user-is-tabbing');
+          window.removeEventListener('keydown', handleFirstTab);
+        }
+      }
+      window.addEventListener('keydown', handleFirstTab);
+      const style = document.createElement('style');
+      style.innerHTML = '.user-is-tabbing :focus{outline:3px solid color-mix(in oklab,var(--accent),#fff 12%);outline-offset:3px}';
+      document.head.appendChild(style);
+    })();
+
   </script>
 </body>
 </html>
