@@ -1,1 +1,34 @@
-y
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {font-family: Arial; text-align:center; padding-top:100px;}
+    input, button {padding:10px; margin:5px;}
+  </style>
+</head>
+<body>
+  <h2>लॉगिन करें</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p id="error" style="color:red; display:none;">गलत डिटेल्स!</p>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      // डेमो credentials
+      if (user === "admin" && pass === "12345") {
+        localStorage.setItem("authToken", "niptyfipty-demo-token");
+        window.location.href = "home.html"; // ✅ Redirect
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
