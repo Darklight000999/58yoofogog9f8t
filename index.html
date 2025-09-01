@@ -2,51 +2,226 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Secure Login</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Security Website</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <style>
-    body {
-      background: black;
-      color: #00ff99;
-      font-family: monospace;
-      text-align: center;
-      margin-top: 20%;
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;transition:all 0.4s ease-in-out}
+    body{background:#0d0d0d;color:#fff;line-height:1.6;overflow-x:hidden}
+    body.light{background:#f5f5f5;color:#111}
+    a{text-decoration:none;color:inherit}
+    header{display:flex;justify-content:space-between;align-items:center;padding:20px;background:#111;position:sticky;top:0;z-index:1000}
+    body.light header{background:#fff}
+    header .logo{font-size:22px;font-weight:700;color:#00ff84;animation:fadeInDown 1s ease}
+    header nav a{margin:0 12px;color:#ccc;transition:0.3s;position:relative}
+    body.light header nav a{color:#333}
+    header nav a:hover{color:#00ff84;transform:translateY(-3px)}
+    .theme-btn,.logout-btn,.sidebar-toggle{padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;margin-right:8px}
+    .theme-btn{background:#333;color:#fff}
+    body.light .theme-btn{background:#ddd;color:#000}
+    .logout-btn{background:#ff4444;color:#fff}
+    .logout-btn:hover{background:#cc0000;transform:scale(1.05)}
+    .sidebar-toggle{background:#00ff84;color:#000}
+
+    /* Sidebar */
+    .sidebar{position:fixed;top:0;left:-250px;width:250px;height:100%;background:#111;padding:20px;transition:left 0.4s ease;z-index:2000;display:flex;flex-direction:column;gap:20px}
+    .sidebar a{color:#ccc;font-size:18px;transition:0.3s}
+    .sidebar a:hover{color:#00ff84;transform:translateX(5px)}
+    body.light .sidebar{background:#fff}
+    body.light .sidebar a{color:#333}
+    .sidebar.active{left:0}
+
+    .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:60px 10%}
+    .hero-text h1{font-size:48px;color:#00ff84;margin-bottom:20px;animation:fadeInLeft 1.2s ease}
+    .hero-text p{color:#ccc;margin-bottom:20px;animation:fadeInLeft 1.5s ease}
+    body.light .hero-text p{color:#444}
+    .btn{background:#00ff84;color:#000;padding:12px 28px;border-radius:8px;font-weight:600;transition:0.3s;display:inline-block;animation:fadeInUp 2s ease}
+    .btn:hover{background:#00cc66;transform:scale(1.1)}
+    .hero-img{display:flex;justify-content:center;align-items:center;background:#111;border-radius:12px;min-height:300px;color:#aaa;font-size:20px;text-align:center;padding:20px;animation:zoomIn 1.5s ease}
+    body.light .hero-img{background:#eee;color:#555}
+
+    section{padding:80px 10%}
+    section h2{text-align:center;margin-bottom:40px;font-size:32px;position:relative;animation:fadeInDown 1s ease}
+    section h2::after{content:'';display:block;width:80px;height:3px;background:#00ff84;margin:10px auto 0;border-radius:2px}
+
+    .services,.pricing,.team,.blog{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .card{background:#111;padding:25px;border-radius:12px;transition:0.3s;transform:translateY(0);animation:fadeInUp 1s ease}
+    .card:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 0 20px rgba(0,255,132,0.4)}
+    body.light .card{background:#fff;color:#111;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center}
+    .stat h2{color:#00ff84;font-size:32px;animation:bounceIn 1s ease}
+
+    .faq-item{background:#111;margin:10px 0;padding:15px;border-radius:10px;cursor:pointer;animation:fadeInUp 1s ease}
+    body.light .faq-item{background:#eee}
+    .faq-answer{display:none;margin-top:10px;color:#ccc;animation:fadeIn 0.8s ease}
+    body.light .faq-answer{color:#444}
+
+    .reviews{position:relative;overflow:hidden}
+    .review-track{display:flex;transition:transform 0.5s ease}
+    .review{min-width:100%;padding:20px;text-align:center;animation:fadeIn 1s ease}
+    .review p{color:#ccc}
+
+    .newsletter{text-align:center;background:#111;padding:40px;border-radius:12px;animation:fadeInUp 1.5s ease}
+    body.light .newsletter{background:#eee;color:#111}
+
+    footer{background:#111;padding:30px;text-align:center;color:#aaa;margin-top:40px;animation:fadeInUp 2s ease}
+    body.light footer{background:#f1f1f1;color:#333}
+
+    .social-icons{margin-top:20px;display:flex;justify-content:center;gap:15px}
+    .social-icons a{color:#aaa;font-size:20px;transition:0.3s}
+    .social-icons a:hover{color:#00ff84;transform:scale(1.2)}
+
+    @media(max-width:768px){
+      .hero{grid-template-columns:1fr}
+      .hero-text{text-align:center}
+      .hero-img{margin-top:20px}
     }
-    .btn {
-      background: transparent;
-      border: 2px solid #00ff99;
-      padding: 12px 25px;
-      font-size: 18px;
-      cursor: pointer;
-      color: #00ff99;
-      border-radius: 8px;
-    }
-    .btn:hover {
-      background: #00ff99;
-      color: black;
-    }
+
+    /* Keyframes */
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-50px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes zoomIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+    @keyframes bounceIn{0%{transform:scale(0.5);opacity:0}50%{transform:scale(1.2);opacity:1}100%{transform:scale(1)}}
   </style>
 </head>
 <body>
-  <h1>Secure Access Portal</h1>
-  <button class="btn" id="loginBtn">LOGIN / SIGNUP</button>
+  <header>
+    <div class="logo">🔒 CyberSecure</div>
+    <nav>
+      <button class="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+      <button class="theme-btn" onclick="toggleTheme()">🌙 Dark/Light</button>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+  </header>
 
+  <div class="sidebar" id="sidebar">
+    <a href="#home" onclick="toggleSidebar()">Home</a>
+    <a href="#services" onclick="toggleSidebar()">Services</a>
+    <a href="#faq" onclick="toggleSidebar()">FAQ</a>
+    <a href="#pricing" onclick="toggleSidebar()">Pricing</a>
+    <a href="#blog" onclick="toggleSidebar()">Blog</a>
+    <a href="#contact" onclick="toggleSidebar()">Contact</a>
+  </div>
+
+  <section class="hero" id="home">
+    <div class="hero-text" data-aos="fade-right">
+      <h1>We’re A Best Cyber Security Solution Team</h1>
+      <p>Secure your digital identity with our professional team.</p>
+      <a href="#services" class="btn">Get Started</a>
+    </div>
+    <div class="hero-img" data-aos="fade-left">
+      📷 यहां अपनी वेबसाइट का मुख्य फोटो लगाएँ
+    </div>
+  </section>
+
+  <section id="services">
+    <h2 data-aos="fade-up">Our Services</h2>
+    <div class="services">
+      <div class="card" data-aos="zoom-in"><i class="fas fa-lock fa-2x"></i><h3>Data Protection</h3><p>Keep your data safe with end-to-end encryption.</p></div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-user-shield fa-2x"></i><h3>Identity Security</h3><p>Advanced solutions for your online identity protection.</p></div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="400"><i class="fas fa-network-wired fa-2x"></i><h3>Network Safety</h3><p>Monitor and defend against online threats in real-time.</p></div>
+    </div>
+  </section>
+
+  <section id="stats">
+    <div class="stats">
+      <div class="stat" data-aos="fade-up"><h2>1439+</h2><p>Projects</p></div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="200"><h2>569+</h2><p>Clients</p></div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="400"><h2>100%</h2><p>Success</p></div>
+      <div class="stat" data-aos="fade-up" data-aos-delay="600"><h2>108+</h2><p>Awards</p></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 data-aos="fade-up">Frequently Asked Questions</h2>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <h4>How secure is my data?</h4>
+      <div class="faq-answer">We use advanced encryption standards to protect your data.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <h4>Do you offer 24/7 support?</h4>
+      <div class="faq-answer">Yes, our cyber team is available all the time for you.</div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <h2 data-aos="fade-up">Client Reviews</h2>
+    <div class="reviews">
+      <div class="review-track" id="reviewTrack">
+        <div class="review" data-aos="fade-up"><p>“Excellent service and top security!”</p><h4>- User A</h4></div>
+        <div class="review" data-aos="fade-up" data-aos-delay="200"><p>“Very professional team.”</p><h4>- User B</h4></div>
+        <div class="review" data-aos="fade-up" data-aos-delay="400"><p>“Highly recommended for businesses.”</p><h4>- User C</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <h2 data-aos="fade-up">Latest News & Blog</h2>
+    <div class="blog">
+      <div class="card" data-aos="fade-up"><div class="hero-img">📰 यहां ब्लॉग पोस्ट की इमेज डालें</div><h3>Cyber Security Trends 2025</h3><p>Latest updates in cyber security world.</p></div>
+      <div class="card" data-aos="fade-up" data-aos-delay="200"><div class="hero-img">📰 यहां ब्लॉग पोस्ट की इमेज डालें</div><h3>Protect Your Data Online</h3><p>Learn tips to keep your online data safe.</p></div>
+      <div class="card" data-aos="fade-up" data-aos-delay="400"><div class="hero-img">📰 यहां ब्लॉग पोस्ट की इमेज डालें</div><h3>Top Security Tools</h3><p>Check out the best tools for cyber safety.</p></div>
+    </div>
+  </section>
+
+  <section class="newsletter" id="contact" data-aos="fade-up">
+    <h2>Sign up for Newsletter</h2>
+    <input type="email" placeholder="Enter your email" style="padding:10px;border:none;border-radius:6px;width:60%;max-width:300px">
+    <button class="btn">Subscribe</button>
+  </section>
+
+  <footer>
+    <p>© 2025 CyberSecure. All Rights Reserved.</p>
+    <div class="social-icons">
+      <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://business.google.com" target="_blank"><i class="fab fa-google"></i></a>
+      <a href="https://t.me" target="_blank"><i class="fab fa-telegram"></i></a>
+      <a href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://x.com" target="_blank"><i class="fab fa-x-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Netlify Identity init
-    netlifyIdentity.init();
+    AOS.init({duration:1000,once:true});
 
-    // Login button event
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      netlifyIdentity.open();
-    });
+    function toggleFAQ(item){
+      const ans=item.querySelector('.faq-answer');
+      ans.style.display=ans.style.display==='block'?'none':'block';
+    }
 
-    // On successful login
-    netlifyIdentity.on("login", (user) => {
-      console.log("✅ Login successful:", user);
-      netlifyIdentity.close();
-      // --- IMPORTANT: यहां पर home.html redirect होगा ---
-      window.location.href = "home.html";
-    });
+    let index=0;
+    setInterval(()=>{
+      const track=document.getElementById('reviewTrack');
+      index=(index+1)%3;
+      track.style.transform=`translateX(-${index*100}%)`;
+    },3000);
+
+    function toggleTheme(){
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');
+    }
+
+    function logout(){
+      alert('You have been logged out.');
+      window.location.href = 'index.html';
+    }
+
+    function toggleSidebar(){
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+
+    // Load theme preference
+    window.onload=()=>{
+      if(localStorage.getItem('theme')==='light'){
+        document.body.classList.add('light');
+      }
+    }
   </script>
 </body>
 </html>
