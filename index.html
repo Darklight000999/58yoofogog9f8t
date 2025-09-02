@@ -2,26 +2,60 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>Login / Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <style>
+    body {
+      background: #2563eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    h2 { margin-bottom: 20px; color: #111827; }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #2563eb;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: #1d4ed8; }
+  </style>
 </head>
 <body>
-  <h2>Login Page</h2>
-
-  <!-- Login/Register Button -->
-  <div>
+  <div class="card">
+    <h2>🔐 सुरक्षित लॉगिन</h2>
+    <p>लॉगिन / साइनअप करने के लिए नीचे क्लिक करें</p>
     <button onclick="netlifyIdentity.open()">Login / Signup</button>
   </div>
 
   <script>
-    // जब यूज़र लॉगिन कर ले
+    // जब user login करे
     netlifyIdentity.on("login", user => {
-      console.log("User Logged in:", user);
-      // ✅ Redirect to home.html
-      window.location.href = "home.html";
+      console.log("User logged in:", user);
+      window.location.href = "home.html"; // ✅ अब ही redirect होगा
     });
 
-    // Logout Event
+    // logout event सिर्फ console में
     netlifyIdentity.on("logout", () => {
       console.log("User logged out");
     });
