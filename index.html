@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>Login / Signup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <style>
@@ -49,15 +47,19 @@
   </div>
 
   <script>
-    // जब user login करे
-    netlifyIdentity.on("login", user => {
-      console.log("User logged in:", user);
-      window.location.href = "home.html"; // ✅ अब ही redirect होगा
+    netlifyIdentity.on("login", async user => {
+      console.log("✅ User Logged in:", user);
+
+      // JWT Token को localStorage में save करें
+      const token = await user.jwt();
+      localStorage.setItem("jwt", token);
+
+      // अब home.html पर redirect
+      window.location.href = "home.html";
     });
 
-    // logout event सिर्फ console में
     netlifyIdentity.on("logout", () => {
-      console.log("User logged out");
+      localStorage.removeItem("jwt");
     });
   </script>
 </body>
